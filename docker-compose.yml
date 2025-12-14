@@ -1,0 +1,16 @@
+# docker-compose.yml
+
+version: '3.8'
+services:
+  postgres-db:
+    image: postgres:15-alpine
+    container_name: ohara-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: ohara
+      POSTGRES_PASSWORD: docker
+      POSTGRES_DB: ohara_db
+    ports:
+      - '5432:5432'
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data

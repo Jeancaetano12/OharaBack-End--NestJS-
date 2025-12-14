@@ -1,0 +1,66 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+  moduleFormat    = "cjs"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Membro {
+  id              String    @id @default(uuid()) // ID interno do banco
+  discordId       String    @unique              // ID do Discord (chave única para busca)
+  
+  // Dados de Identificação
+  username        String
+  globalName      String?
+  serverNickName  String?
+  
+  // URLs de Imagens
+  avatarUrl       String?
+  serverAvatarUrl String?
+  bannerUrl       String?
+  
+  // Metadados
+  isBot           Boolean   @default(false)
+  colorHex        String?   // A cor que o usuário exibe no servidor
+  
+  // Datas
+  accountCreatedAt DateTime
+  joinedServerAt   DateTime?
+  premiumSince     DateTime?
+
+  // Campos de Controle do Banco
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  // Relacionamento: Um usuário pode ter vários cargos
+  cargos           Cargo[]    
+  
+  @@map("Membros") // Nome da tabela no banco
+}
+
+model Cargo {
+  id            String  @id @default(uuid())
+  discordId     String  @unique // Importante para o "connect" funcionar
+  
+  name          String
+  colorHex      String?
+  position      Int
+  permissions   String  // Armazenado como String (BigInt convertido)
+  isManaged     Boolean @default(false)
+  isMentionable Boolean @default(false)
+  isHoist       Boolean @default(false)
+
+  // Relacionamento: Um cargo pode pertencer a vários usuários
+  membros         Membro[]
+
+  @@map("cargos")
+}
