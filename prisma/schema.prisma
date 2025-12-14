@@ -14,7 +14,7 @@ datasource db {
   provider = "postgresql"
 }
 
-model Membro {
+model User {
   id              String    @id @default(uuid()) // ID interno do banco
   discordId       String    @unique              // ID do Discord (chave única para busca)
   
@@ -42,12 +42,12 @@ model Membro {
   updatedAt       DateTime  @updatedAt
 
   // Relacionamento: Um usuário pode ter vários cargos
-  cargos           Cargo[]    
+  roles           Role[]    
   
   @@map("Membros") // Nome da tabela no banco
 }
 
-model Cargo {
+model Role {
   id            String  @id @default(uuid())
   discordId     String  @unique // Importante para o "connect" funcionar
   
@@ -60,7 +60,7 @@ model Cargo {
   isHoist       Boolean @default(false)
 
   // Relacionamento: Um cargo pode pertencer a vários usuários
-  membros         Membro[]
+  membros         User[]
 
-  @@map("cargos")
+  @@map("Cargos") // Nome da tabela no banco
 }

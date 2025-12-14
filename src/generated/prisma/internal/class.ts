@@ -20,7 +20,7 @@ const config: runtime.GetPrismaClientConfig = {
   "clientVersion": "7.1.0",
   "engineVersion": "ab635e6b9d606fa5c8fb8b1a7f909c3c3c1c98ba",
   "activeProvider": "postgresql",
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider     = \"prisma-client\"\n  output       = \"../src/generated/prisma\"\n  moduleFormat = \"cjs\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nmodel Membro {\n  id        String @id @default(uuid()) // ID interno do banco\n  discordId String @unique // ID do Discord (chave única para busca)\n\n  // Dados de Identificação\n  username       String\n  globalName     String?\n  serverNickName String?\n\n  // URLs de Imagens\n  avatarUrl       String?\n  serverAvatarUrl String?\n  bannerUrl       String?\n\n  // Metadados\n  isBot    Boolean @default(false)\n  colorHex String? // A cor que o usuário exibe no servidor\n\n  // Datas\n  accountCreatedAt DateTime\n  joinedServerAt   DateTime?\n  premiumSince     DateTime?\n\n  // Campos de Controle do Banco\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  // Relacionamento: Um usuário pode ter vários cargos\n  cargos Cargo[]\n\n  @@map(\"Membros\") // Nome da tabela no banco\n}\n\nmodel Cargo {\n  id        String @id @default(uuid())\n  discordId String @unique // Importante para o \"connect\" funcionar\n\n  name          String\n  colorHex      String?\n  position      Int\n  permissions   String // Armazenado como String (BigInt convertido)\n  isManaged     Boolean @default(false)\n  isMentionable Boolean @default(false)\n  isHoist       Boolean @default(false)\n\n  // Relacionamento: Um cargo pode pertencer a vários usuários\n  membros Membro[]\n\n  @@map(\"cargos\")\n}\n",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider     = \"prisma-client\"\n  output       = \"../src/generated/prisma\"\n  moduleFormat = \"cjs\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nmodel User {\n  id        String @id @default(uuid()) // ID interno do banco\n  discordId String @unique // ID do Discord (chave única para busca)\n\n  // Dados de Identificação\n  username       String\n  globalName     String?\n  serverNickName String?\n\n  // URLs de Imagens\n  avatarUrl       String?\n  serverAvatarUrl String?\n  bannerUrl       String?\n\n  // Metadados\n  isBot    Boolean @default(false)\n  colorHex String? // A cor que o usuário exibe no servidor\n\n  // Datas\n  accountCreatedAt DateTime\n  joinedServerAt   DateTime?\n  premiumSince     DateTime?\n\n  // Campos de Controle do Banco\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n\n  // Relacionamento: Um usuário pode ter vários cargos\n  roles Role[]\n\n  @@map(\"Membros\") // Nome da tabela no banco\n}\n\nmodel Role {\n  id        String @id @default(uuid())\n  discordId String @unique // Importante para o \"connect\" funcionar\n\n  name          String\n  colorHex      String?\n  position      Int\n  permissions   String // Armazenado como String (BigInt convertido)\n  isManaged     Boolean @default(false)\n  isMentionable Boolean @default(false)\n  isHoist       Boolean @default(false)\n\n  // Relacionamento: Um cargo pode pertencer a vários usuários\n  membros User[]\n\n  @@map(\"Cargos\") // Nome da tabela no banco\n}\n",
   "runtimeDataModel": {
     "models": {},
     "enums": {},
@@ -28,7 +28,7 @@ const config: runtime.GetPrismaClientConfig = {
   }
 }
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"Membro\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"discordId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"username\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"globalName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"serverNickName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"avatarUrl\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"serverAvatarUrl\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"bannerUrl\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"isBot\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"colorHex\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"accountCreatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"joinedServerAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"premiumSince\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"cargos\",\"kind\":\"object\",\"type\":\"Cargo\",\"relationName\":\"CargoToMembro\"}],\"dbName\":\"Membros\"},\"Cargo\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"discordId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"colorHex\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"position\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"permissions\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"isManaged\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"isMentionable\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"isHoist\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"membros\",\"kind\":\"object\",\"type\":\"Membro\",\"relationName\":\"CargoToMembro\"}],\"dbName\":\"cargos\"}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"discordId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"username\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"globalName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"serverNickName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"avatarUrl\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"serverAvatarUrl\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"bannerUrl\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"isBot\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"colorHex\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"accountCreatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"joinedServerAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"premiumSince\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"roles\",\"kind\":\"object\",\"type\":\"Role\",\"relationName\":\"RoleToUser\"}],\"dbName\":\"Membros\"},\"Role\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"discordId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"colorHex\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"position\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"permissions\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"isManaged\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"isMentionable\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"isHoist\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"membros\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"RoleToUser\"}],\"dbName\":\"Cargos\"}},\"enums\":{},\"types\":{}}")
 
 async function decodeBase64AsWasm(wasmBase64: string): Promise<WebAssembly.Module> {
   const { Buffer } = await import('node:buffer')
@@ -58,8 +58,8 @@ export interface PrismaClientConstructor {
    * @example
    * ```
    * const prisma = new PrismaClient()
-   * // Fetch zero or more Membros
-   * const membros = await prisma.membro.findMany()
+   * // Fetch zero or more Users
+   * const users = await prisma.user.findMany()
    * ```
    * 
    * Read more in our [docs](https://pris.ly/d/client).
@@ -80,8 +80,8 @@ export interface PrismaClientConstructor {
  * @example
  * ```
  * const prisma = new PrismaClient()
- * // Fetch zero or more Membros
- * const membros = await prisma.membro.findMany()
+ * // Fetch zero or more Users
+ * const users = await prisma.user.findMany()
  * ```
  * 
  * Read more in our [docs](https://pris.ly/d/client).
@@ -175,24 +175,24 @@ export interface PrismaClient<
   }>>
 
       /**
-   * `prisma.membro`: Exposes CRUD operations for the **Membro** model.
+   * `prisma.user`: Exposes CRUD operations for the **User** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more Membros
-    * const membros = await prisma.membro.findMany()
+    * // Fetch zero or more Users
+    * const users = await prisma.user.findMany()
     * ```
     */
-  get membro(): Prisma.MembroDelegate<ExtArgs, { omit: OmitOpts }>;
+  get user(): Prisma.UserDelegate<ExtArgs, { omit: OmitOpts }>;
 
   /**
-   * `prisma.cargo`: Exposes CRUD operations for the **Cargo** model.
+   * `prisma.role`: Exposes CRUD operations for the **Role** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more Cargos
-    * const cargos = await prisma.cargo.findMany()
+    * // Fetch zero or more Roles
+    * const roles = await prisma.role.findMany()
     * ```
     */
-  get cargo(): Prisma.CargoDelegate<ExtArgs, { omit: OmitOpts }>;
+  get role(): Prisma.RoleDelegate<ExtArgs, { omit: OmitOpts }>;
 }
 
 export function getPrismaClientClass(): PrismaClientConstructor {

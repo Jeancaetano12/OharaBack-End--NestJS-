@@ -51,8 +51,8 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
-  Membro: 'Membro',
-  Cargo: 'Cargo'
+  User: 'User',
+  Role: 'Role'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -71,7 +71,7 @@ export const TransactionIsolationLevel = {
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
-export const MembroScalarFieldEnum = {
+export const UserScalarFieldEnum = {
   id: 'id',
   discordId: 'discordId',
   username: 'username',
@@ -89,10 +89,10 @@ export const MembroScalarFieldEnum = {
   updatedAt: 'updatedAt'
 } as const
 
-export type MembroScalarFieldEnum = (typeof MembroScalarFieldEnum)[keyof typeof MembroScalarFieldEnum]
+export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
-export const CargoScalarFieldEnum = {
+export const RoleScalarFieldEnum = {
   id: 'id',
   discordId: 'discordId',
   name: 'name',
@@ -104,7 +104,7 @@ export const CargoScalarFieldEnum = {
   isHoist: 'isHoist'
 } as const
 
-export type CargoScalarFieldEnum = (typeof CargoScalarFieldEnum)[keyof typeof CargoScalarFieldEnum]
+export type RoleScalarFieldEnum = (typeof RoleScalarFieldEnum)[keyof typeof RoleScalarFieldEnum]
 
 
 export const SortOrder = {
