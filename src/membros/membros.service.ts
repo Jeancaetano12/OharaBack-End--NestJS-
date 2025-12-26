@@ -1,9 +1,10 @@
-import { Injectable, ConflictException, NotFoundException  } from '@nestjs/common';
+import { Injectable, ConflictException, NotFoundException, Logger  } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import { CreateMembroDto } from './dto/create-membro.dto';
 
 @Injectable()
 export class MembrosService {
+    private readonly logger = new Logger(MembrosService.name);
     constructor(private prisma: PrismaService) {}
 
     async syncMembers(createMembroDto: CreateMembroDto[]) {
@@ -13,7 +14,7 @@ export class MembrosService {
                 const rolesConnection = rolesIds && rolesIds.length > 0 
                     ? rolesIds.map((id) => ({ discordId: id })) 
                     : [];
-                
+                this.logger.log(`Sincronizando membro: ${userData.discordId} com ${rolesConnection.length} cargos.`);
                 return this.prisma.user.upsert({
                     where: { discordId: userData.discordId },
                     update: {
@@ -50,11 +51,11 @@ export class MembrosService {
                     },
                 });
             });
-        
+            this.logger.log(`Iniciando transação para sincronização de membros...`);
             return this.prisma.$transaction(transaction);
         }   catch (error) {
-            console.error(error);
-            throw new Error(`Erro ao sincronizar membros: ${error.message}`);
+            this.logger.warn(`Erro ao sincronizar membros: ${error.message}`);
+            throw new Error(`Erro ao sincronizar membros`);
         }
     }
 
@@ -87,6 +88,7 @@ export class MembrosService {
                 }
             }
         });
+
         const outrosOrdered = outrosRaw.sort((a, b) => {
             const roleA = a.roles[0]?.name || 'z';
             const roleB = b.roles[0]?.name || 'z';
@@ -102,14 +104,16 @@ export class MembrosService {
         const total = allIds.length;
 
         // Calcula onde começa e termina a página atual
+        this.logger.log(`Calculando índices para paginação: página ${pageNumber}, tamanho ${pageSize}...`);
         const startIndex = (pageNumber - 1) * pageSize;
         const endIndex = startIndex + pageSize;
         
         // Pega apenas os IDs da página que o usuário pediu
+        
         const pageIds = allIds.slice(startIndex, endIndex);
 
         // --- ETAPA 3: Buscar os dados Reais ---
-        
+
         if (pageIds.length === 0) {
             return { data: [], meta: { total, page: pageNumber, limit: pageSize, totalPages: 0 } };
         }
@@ -126,6 +130,7 @@ export class MembrosService {
 
         // O "WHERE IN" do SQL não garante a ordem de retorno, então reordenamos em memória
         // para garantir que a ordem dos IDs que criamos na Etapa 2 seja respeitada
+        this.logger.log(`Reordenando usuários para manter a ordem correta...`);
         const sortedUsers = pageIds.map(id => users.find(u => u.id === id));
 
         return {
@@ -172,7 +177,7 @@ export class MembrosService {
             globalName: 'asc' 
         }
     });
-    
+    this.logger.log(`Encontrados ${membros.length} membros com o nome: ${name}`);
     return membros;
 }
 }

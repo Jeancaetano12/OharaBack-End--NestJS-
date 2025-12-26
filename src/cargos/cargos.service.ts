@@ -1,13 +1,14 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import { CreateCargoDto } from './dto/create-cargo.dto';
 
 @Injectable()
 export class CargosService {
+    private readonly logger = new Logger(CargosService.name);
     constructor(private prisma: PrismaService) {}
 
     async syncRoles(createCargoDto: CreateCargoDto[]) {
-
+        this.logger.log(`Sincronizando ${createCargoDto.length} cargos...`);
         try {
             const transaction = createCargoDto.map((cargo) =>
                 this.prisma.role.upsert({
@@ -34,11 +35,11 @@ export class CargosService {
                     }
                 }),
             );
-
+            this.logger.log(`Iniciando transação para sincronização de cargos...`);
             return this.prisma.$transaction(transaction);    
         }   catch (error) {
-            console.error(error);
-            throw new Error(`Erro ao sincronizar cargos: ${error.message}`);
+            this.logger.error(`Erro ao sincronizar cargos: ${error.message}`);
+            throw new Error(`Erro ao sincronizar cargos`);
         }
     }
 }

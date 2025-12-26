@@ -1,4 +1,4 @@
-import { Controller, UseGuards, Post, Body, Get, Query, BadRequestException} from '@nestjs/common';
+import { Controller, UseGuards, Post, Body, Get, Query, BadRequestException, Logger} from '@nestjs/common';
 import { MembrosService } from './membros.service';
 import { BotKeyGuard } from 'src/auth/bot-key.guard';
 import { SiteKeyGuard } from 'src/auth/site-key.guard';
@@ -7,20 +7,21 @@ import { SkipThrottle } from '@nestjs/throttler';
 
 @Controller('membros')
 export class MembrosController {
-constructor(private readonly membrosService: MembrosService) {}
+  private readonly logger = new Logger(MembrosController.name);
+  constructor(private readonly membrosService: MembrosService) {}
 
   @Post()
   @SkipThrottle()
   @UseGuards(BotKeyGuard)
   create(@Body() createMembroDto: CreateMembroDto[]) {
-    console.log(`Membros recebidos no controlador: ${createMembroDto.length}`);
+    this.logger.log(`Membros recebidos no controlador: ${createMembroDto.length}`);
     return this.membrosService.syncMembers(createMembroDto);
   }
 
   @Get()
   @UseGuards(SiteKeyGuard)
   findAll(@Query('page') page: string = '1', @Query('limit') limit: string = '6') {
-    console.log(`Listando membros - Página: ${page}, Limite: ${limit}`);
+    this.logger.log(`Listando membros - Página: ${page}, Limite: ${limit}`);
     return this.membrosService.findAll(page, limit);
   }
 
@@ -30,7 +31,7 @@ constructor(private readonly membrosService: MembrosService) {}
   if (!name) {
     throw new BadRequestException('O nome para busca é obrigatório');
   }
-  console.log(`Buscando membro pelo nome: ${name}`);
+  this.logger.log(`Buscando membro pelo nome: ${name}`);
   return await this.membrosService.findOne(name);
   }
 }
