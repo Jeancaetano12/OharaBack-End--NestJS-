@@ -1,15 +1,16 @@
 import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from '@nestjs/common';
 
 @Injectable()
-export class BotKeyGuard implements CanActivate {
+export class SiteKeyGuard implements CanActivate {
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
     
-    // Pegamos a chave enviada no Header da requisição
-    const apiKey = request.headers['x-api-key'];
+    // O site deve enviar a chave neste header
+    const apiKey = request.headers['x-site-key'];
     
-    const validKey = process.env.BOT_KEY;
-    
+    // Pega a chave do site definida no .env
+    const validKey = process.env.SITE_KEY; 
+
     if (!apiKey || apiKey !== validKey) {
       throw new UnauthorizedException('Acesso negado: Chave de API inválida ou ausente.');
     }

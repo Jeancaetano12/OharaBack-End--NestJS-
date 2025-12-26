@@ -601,6 +601,7 @@ export const UserScalarFieldEnum = {
   avatarUrl: 'avatarUrl',
   serverAvatarUrl: 'serverAvatarUrl',
   bannerUrl: 'bannerUrl',
+  serverBannerUrl: 'serverBannerUrl',
   isBot: 'isBot',
   colorHex: 'colorHex',
   accountCreatedAt: 'accountCreatedAt',

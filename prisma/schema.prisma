@@ -27,6 +27,7 @@ model User {
   avatarUrl       String?
   serverAvatarUrl String?
   bannerUrl       String?
+  serverBannerUrl String?
   
   // Metadados
   isBot           Boolean   @default(false)

@@ -36,6 +36,10 @@ export class CreateMembroDto {
   @IsOptional()
   bannerUrl?: string;
 
+  @IsString()
+  @IsOptional()
+  serverBannerUrl?: string;
+
   @IsBoolean()
   isBot: boolean;
 

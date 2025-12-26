@@ -33,6 +33,7 @@ export type UserMinAggregateOutputType = {
   avatarUrl: string | null
   serverAvatarUrl: string | null
   bannerUrl: string | null
+  serverBannerUrl: string | null
   isBot: boolean | null
   colorHex: string | null
   accountCreatedAt: Date | null
@@ -51,6 +52,7 @@ export type UserMaxAggregateOutputType = {
   avatarUrl: string | null
   serverAvatarUrl: string | null
   bannerUrl: string | null
+  serverBannerUrl: string | null
   isBot: boolean | null
   colorHex: string | null
   accountCreatedAt: Date | null
@@ -69,6 +71,7 @@ export type UserCountAggregateOutputType = {
   avatarUrl: number
   serverAvatarUrl: number
   bannerUrl: number
+  serverBannerUrl: number
   isBot: number
   colorHex: number
   accountCreatedAt: number
@@ -89,6 +92,7 @@ export type UserMinAggregateInputType = {
   avatarUrl?: true
   serverAvatarUrl?: true
   bannerUrl?: true
+  serverBannerUrl?: true
   isBot?: true
   colorHex?: true
   accountCreatedAt?: true
@@ -107,6 +111,7 @@ export type UserMaxAggregateInputType = {
   avatarUrl?: true
   serverAvatarUrl?: true
   bannerUrl?: true
+  serverBannerUrl?: true
   isBot?: true
   colorHex?: true
   accountCreatedAt?: true
@@ -125,6 +130,7 @@ export type UserCountAggregateInputType = {
   avatarUrl?: true
   serverAvatarUrl?: true
   bannerUrl?: true
+  serverBannerUrl?: true
   isBot?: true
   colorHex?: true
   accountCreatedAt?: true
@@ -216,6 +222,7 @@ export type UserGroupByOutputType = {
   avatarUrl: string | null
   serverAvatarUrl: string | null
   bannerUrl: string | null
+  serverBannerUrl: string | null
   isBot: boolean
   colorHex: string | null
   accountCreatedAt: Date
@@ -255,6 +262,7 @@ export type UserWhereInput = {
   avatarUrl?: Prisma.StringNullableFilter<"User"> | string | null
   serverAvatarUrl?: Prisma.StringNullableFilter<"User"> | string | null
   bannerUrl?: Prisma.StringNullableFilter<"User"> | string | null
+  serverBannerUrl?: Prisma.StringNullableFilter<"User"> | string | null
   isBot?: Prisma.BoolFilter<"User"> | boolean
   colorHex?: Prisma.StringNullableFilter<"User"> | string | null
   accountCreatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
@@ -274,6 +282,7 @@ export type UserOrderByWithRelationInput = {
   avatarUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   serverAvatarUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   bannerUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  serverBannerUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   isBot?: Prisma.SortOrder
   colorHex?: Prisma.SortOrderInput | Prisma.SortOrder
   accountCreatedAt?: Prisma.SortOrder
@@ -296,6 +305,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   avatarUrl?: Prisma.StringNullableFilter<"User"> | string | null
   serverAvatarUrl?: Prisma.StringNullableFilter<"User"> | string | null
   bannerUrl?: Prisma.StringNullableFilter<"User"> | string | null
+  serverBannerUrl?: Prisma.StringNullableFilter<"User"> | string | null
   isBot?: Prisma.BoolFilter<"User"> | boolean
   colorHex?: Prisma.StringNullableFilter<"User"> | string | null
   accountCreatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
@@ -315,6 +325,7 @@ export type UserOrderByWithAggregationInput = {
   avatarUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   serverAvatarUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   bannerUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  serverBannerUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   isBot?: Prisma.SortOrder
   colorHex?: Prisma.SortOrderInput | Prisma.SortOrder
   accountCreatedAt?: Prisma.SortOrder
@@ -339,6 +350,7 @@ export type UserScalarWhereWithAggregatesInput = {
   avatarUrl?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   serverAvatarUrl?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   bannerUrl?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  serverBannerUrl?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   isBot?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   colorHex?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   accountCreatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
@@ -357,6 +369,7 @@ export type UserCreateInput = {
   avatarUrl?: string | null
   serverAvatarUrl?: string | null
   bannerUrl?: string | null
+  serverBannerUrl?: string | null
   isBot?: boolean
   colorHex?: string | null
   accountCreatedAt: Date | string
@@ -376,6 +389,7 @@ export type UserUncheckedCreateInput = {
   avatarUrl?: string | null
   serverAvatarUrl?: string | null
   bannerUrl?: string | null
+  serverBannerUrl?: string | null
   isBot?: boolean
   colorHex?: string | null
   accountCreatedAt: Date | string
@@ -395,6 +409,7 @@ export type UserUpdateInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   serverAvatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  serverBannerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isBot?: Prisma.BoolFieldUpdateOperationsInput | boolean
   colorHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accountCreatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -414,6 +429,7 @@ export type UserUncheckedUpdateInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   serverAvatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  serverBannerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isBot?: Prisma.BoolFieldUpdateOperationsInput | boolean
   colorHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accountCreatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -433,6 +449,7 @@ export type UserCreateManyInput = {
   avatarUrl?: string | null
   serverAvatarUrl?: string | null
   bannerUrl?: string | null
+  serverBannerUrl?: string | null
   isBot?: boolean
   colorHex?: string | null
   accountCreatedAt: Date | string
@@ -451,6 +468,7 @@ export type UserUpdateManyMutationInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   serverAvatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  serverBannerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isBot?: Prisma.BoolFieldUpdateOperationsInput | boolean
   colorHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accountCreatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -469,6 +487,7 @@ export type UserUncheckedUpdateManyInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   serverAvatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  serverBannerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isBot?: Prisma.BoolFieldUpdateOperationsInput | boolean
   colorHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accountCreatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -487,6 +506,7 @@ export type UserCountOrderByAggregateInput = {
   avatarUrl?: Prisma.SortOrder
   serverAvatarUrl?: Prisma.SortOrder
   bannerUrl?: Prisma.SortOrder
+  serverBannerUrl?: Prisma.SortOrder
   isBot?: Prisma.SortOrder
   colorHex?: Prisma.SortOrder
   accountCreatedAt?: Prisma.SortOrder
@@ -505,6 +525,7 @@ export type UserMaxOrderByAggregateInput = {
   avatarUrl?: Prisma.SortOrder
   serverAvatarUrl?: Prisma.SortOrder
   bannerUrl?: Prisma.SortOrder
+  serverBannerUrl?: Prisma.SortOrder
   isBot?: Prisma.SortOrder
   colorHex?: Prisma.SortOrder
   accountCreatedAt?: Prisma.SortOrder
@@ -523,6 +544,7 @@ export type UserMinOrderByAggregateInput = {
   avatarUrl?: Prisma.SortOrder
   serverAvatarUrl?: Prisma.SortOrder
   bannerUrl?: Prisma.SortOrder
+  serverBannerUrl?: Prisma.SortOrder
   isBot?: Prisma.SortOrder
   colorHex?: Prisma.SortOrder
   accountCreatedAt?: Prisma.SortOrder
@@ -609,6 +631,7 @@ export type UserCreateWithoutRolesInput = {
   avatarUrl?: string | null
   serverAvatarUrl?: string | null
   bannerUrl?: string | null
+  serverBannerUrl?: string | null
   isBot?: boolean
   colorHex?: string | null
   accountCreatedAt: Date | string
@@ -627,6 +650,7 @@ export type UserUncheckedCreateWithoutRolesInput = {
   avatarUrl?: string | null
   serverAvatarUrl?: string | null
   bannerUrl?: string | null
+  serverBannerUrl?: string | null
   isBot?: boolean
   colorHex?: string | null
   accountCreatedAt: Date | string
@@ -669,6 +693,7 @@ export type UserScalarWhereInput = {
   avatarUrl?: Prisma.StringNullableFilter<"User"> | string | null
   serverAvatarUrl?: Prisma.StringNullableFilter<"User"> | string | null
   bannerUrl?: Prisma.StringNullableFilter<"User"> | string | null
+  serverBannerUrl?: Prisma.StringNullableFilter<"User"> | string | null
   isBot?: Prisma.BoolFilter<"User"> | boolean
   colorHex?: Prisma.StringNullableFilter<"User"> | string | null
   accountCreatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
@@ -687,6 +712,7 @@ export type UserUpdateWithoutRolesInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   serverAvatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  serverBannerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isBot?: Prisma.BoolFieldUpdateOperationsInput | boolean
   colorHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accountCreatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -705,6 +731,7 @@ export type UserUncheckedUpdateWithoutRolesInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   serverAvatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  serverBannerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isBot?: Prisma.BoolFieldUpdateOperationsInput | boolean
   colorHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accountCreatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -723,6 +750,7 @@ export type UserUncheckedUpdateManyWithoutRolesInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   serverAvatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bannerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  serverBannerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isBot?: Prisma.BoolFieldUpdateOperationsInput | boolean
   colorHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accountCreatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -772,6 +800,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   avatarUrl?: boolean
   serverAvatarUrl?: boolean
   bannerUrl?: boolean
+  serverBannerUrl?: boolean
   isBot?: boolean
   colorHex?: boolean
   accountCreatedAt?: boolean
@@ -792,6 +821,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   avatarUrl?: boolean
   serverAvatarUrl?: boolean
   bannerUrl?: boolean
+  serverBannerUrl?: boolean
   isBot?: boolean
   colorHex?: boolean
   accountCreatedAt?: boolean
@@ -810,6 +840,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   avatarUrl?: boolean
   serverAvatarUrl?: boolean
   bannerUrl?: boolean
+  serverBannerUrl?: boolean
   isBot?: boolean
   colorHex?: boolean
   accountCreatedAt?: boolean
@@ -828,6 +859,7 @@ export type UserSelectScalar = {
   avatarUrl?: boolean
   serverAvatarUrl?: boolean
   bannerUrl?: boolean
+  serverBannerUrl?: boolean
   isBot?: boolean
   colorHex?: boolean
   accountCreatedAt?: boolean
@@ -837,7 +869,7 @@ export type UserSelectScalar = {
   updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "discordId" | "username" | "globalName" | "serverNickName" | "avatarUrl" | "serverAvatarUrl" | "bannerUrl" | "isBot" | "colorHex" | "accountCreatedAt" | "joinedServerAt" | "premiumSince" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "discordId" | "username" | "globalName" | "serverNickName" | "avatarUrl" | "serverAvatarUrl" | "bannerUrl" | "serverBannerUrl" | "isBot" | "colorHex" | "accountCreatedAt" | "joinedServerAt" | "premiumSince" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   roles?: boolean | Prisma.User$rolesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -859,6 +891,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     avatarUrl: string | null
     serverAvatarUrl: string | null
     bannerUrl: string | null
+    serverBannerUrl: string | null
     isBot: boolean
     colorHex: string | null
     accountCreatedAt: Date
@@ -1298,6 +1331,7 @@ export interface UserFieldRefs {
   readonly avatarUrl: Prisma.FieldRef<"User", 'String'>
   readonly serverAvatarUrl: Prisma.FieldRef<"User", 'String'>
   readonly bannerUrl: Prisma.FieldRef<"User", 'String'>
+  readonly serverBannerUrl: Prisma.FieldRef<"User", 'String'>
   readonly isBot: Prisma.FieldRef<"User", 'Boolean'>
   readonly colorHex: Prisma.FieldRef<"User", 'String'>
   readonly accountCreatedAt: Prisma.FieldRef<"User", 'DateTime'>
