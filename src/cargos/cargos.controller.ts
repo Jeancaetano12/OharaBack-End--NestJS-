@@ -1,6 +1,6 @@
 import { Controller, UseGuards, Post, Body, Logger, Injectable } from '@nestjs/common';
 import { CargosService } from './cargos.service';
-import { BotKeyGuard } from 'src/auth/bot-key.guard';
+import { BotKeyGuard } from '../auth/bot-key.guard';
 import { CreateCargoDto } from './dto/create-cargo.dto';
 import { SkipThrottle } from '@nestjs/throttler';
 

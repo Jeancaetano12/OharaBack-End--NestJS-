@@ -1,7 +1,7 @@
 import { Controller, UseGuards, Post, Body, Get, Query, BadRequestException, Logger} from '@nestjs/common';
 import { MembrosService } from './membros.service';
-import { BotKeyGuard } from 'src/auth/bot-key.guard';
-import { SiteKeyGuard } from 'src/auth/site-key.guard';
+import { BotKeyGuard } from '../auth/bot-key.guard';
+import { SiteKeyGuard } from '../auth/site-key.guard';
 import { CreateMembroDto } from './dto/create-membro.dto'; 
 import { SkipThrottle } from '@nestjs/throttler';
 
