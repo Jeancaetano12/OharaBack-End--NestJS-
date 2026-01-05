@@ -3,11 +3,12 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MembrosModule } from './membros/membros.module';
 import { CargosModule } from './cargos/cargos.module';
+import { AuthModule } from './auth/auth.module';
 import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
 
 @Module({
-  imports: [MembrosModule, CargosModule, 
+  imports: [MembrosModule, CargosModule, AuthModule,
     ThrottlerModule.forRoot([{
       ttl: 60,
       limit: 12,

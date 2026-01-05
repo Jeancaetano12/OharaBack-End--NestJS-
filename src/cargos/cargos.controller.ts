@@ -1,4 +1,4 @@
-import { Controller, UseGuards, Post, Body, Logger, Injectable } from '@nestjs/common';
+import { Controller, UseGuards, Post, Body, Logger } from '@nestjs/common';
 import { CargosService } from './cargos.service';
 import { BotKeyGuard } from '../auth/bot-key.guard';
 import { CreateCargoDto } from './dto/create-cargo.dto';

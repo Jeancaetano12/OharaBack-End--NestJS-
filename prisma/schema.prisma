@@ -45,6 +45,11 @@ model User {
   // Relacionamento: Um usuário pode ter vários cargos
   roles           Role[]    
   
+  // Relacionamento Opcional (?): O usuário pode existir sem ter criado perfil ainda
+  profile         Profile?
+  
+  // Conexões (Steam, etc) - Futuro
+  connections     Connection[]
   @@map("Membros") // Nome da tabela no banco
 }
 
@@ -65,3 +70,35 @@ model Role {
 
   @@map("Cargos") // Nome da tabela no banco
 }
+
+model Profile {
+  id          String  @id @default(uuid())
+  
+  // Campos que o usuário edita
+  bio         String? @db.Text // "Sobre Mim"
+  website     String?
+  birthDate   DateTime?
+  customTheme String? // Ex: "dark", "dracula" (preferência do site)
+
+  // A chave estrangeira que liga ao Membro
+  userId      String  @unique // @unique garante que 1 Membro só tem 1 Perfil
+  user        User    @relation(fields: [userId], references: [id])
+
+  updatedAt   DateTime @updatedAt
+
+  @@map("Perfis")
+}
+
+model Connection {
+  id           String   @id @default(uuid())
+  provider     String   // "steam", "spotify"
+  providerId   String
+  accessToken  String?
+  
+  userId       String
+  user         User     @relation(fields: [userId], references: [id])
+
+  @@unique([provider, providerId])
+  @@map("Conexoes")
+}
+
