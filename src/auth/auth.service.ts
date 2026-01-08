@@ -1,34 +1,41 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private jwtService: JwtService
+  ) {}
 
   async validateDiscordUser(profile: any) {
-    const { id, username, discriminator, avatar, email } = profile;
+    const { id } = profile;
 
     // 1. Tenta achar o usuário no banco
     let user = await this.prisma.user.findUnique({
       where: { discordId: id },
     });
 
-    // 2. Se o usuário não existir, você tem duas opções:
-    // Opção A: Criar um novo usuário automaticamente
-    // Opção B: Retornar erro dizendo "Você precisa estar no servidor primeiro"
-    
-    // Vamos assumir que só atualizamos dados se ele já existir (sincronizado pelo bot), 
-    // ou retornamos o usuário encontrado.
-    
     if (user) {
-        // Opcional: Atualizar avatar se mudou
-        return user;
-    }
-
-    if (!user) {
-        return new NotFoundException('Usuário não encontrado. Por favor, entre no servidor primeiro.');
+      return user;
     }
     
-    return null; // Ou lançar erro se o usuário não for encontrado
+    return new NotFoundException('Usuário não encontrado no servidor. Por favor, entre no servidor primeiro.');
+  }
+
+  async login(user: any) {
+
+    const payload = {
+      sub: user.id,
+      discordId: user.discordId,
+      globalName: user.globalName,
+      avatarUrl: user.avatarUrl,
+      serverAvatarUrl: user.serverAvatarUrl,
+    };
+
+    return {
+      access_token: this.jwtService.sign(payload),
+    }
   }
 }
