@@ -6,9 +6,10 @@ import { CargosModule } from './cargos/cargos.module';
 import { AuthModule } from './auth/auth.module';
 import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
+import { UsersModule } from './users/users.module';
 
 @Module({
-  imports: [MembrosModule, CargosModule, AuthModule,
+  imports: [MembrosModule, CargosModule, AuthModule, UsersModule,
     ThrottlerModule.forRoot([{
       ttl: 60,
       limit: 12,

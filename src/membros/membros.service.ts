@@ -121,9 +121,26 @@ export class MembrosService {
         // Busca os usuários completos baseados nos IDs paginados
         const users = await this.prisma.user.findMany({
             where: { id: { in: pageIds } },
-            include: {
+            select: {
+                id: true,
+                discordId: true,
+                username: true,
+                globalName: true,
+                serverNickName: true,
+                avatarUrl: true,
+                serverAvatarUrl: true,
+                bannerUrl: true,
+                serverBannerUrl: true,
+                isBot: true,
+                colorHex: true,
+                joinedServerAt: true,
                 roles: {
-                    orderBy: { position: 'desc' } // Ordena as tags de cargo visualmente
+                    select: {
+                        id: true,
+                        name: true,
+                        colorHex: true,
+                        position: true,
+                    }, orderBy: { position: 'desc' }
                 }
             }
         });
@@ -131,10 +148,16 @@ export class MembrosService {
         // O "WHERE IN" do SQL não garante a ordem de retorno, então reordenamos em memória
         // para garantir que a ordem dos IDs que criamos na Etapa 2 seja respeitada
         this.logger.log(`Reordenando usuários para manter a ordem correta...`);
-        const sortedUsers = pageIds.map(id => users.find(u => u.id === id));
+        const sortedUsers = pageIds.map(id => users.find(u => u.id === id))
+        .filter(u => u !== undefined);
+
+        const safeUsers = sortedUsers.map(user => {
+            const { id, ...publicData } = user;
+            return publicData;
+        })
 
         return {
-            data: sortedUsers,
+            data: safeUsers,
             meta: {
                 total,
                 page: pageNumber,
@@ -168,8 +191,17 @@ export class MembrosService {
                 }
             ],
         },
-        include: {
+        select: {
+            discordId: true,
+            username: true,
+            globalName: true,
+            serverNickName: true,
+            avatarUrl: true,
+            serverAvatarUrl: true,
             roles: {
+                select: {
+                    id: true, name: true, colorHex: true, position: true,
+                },
                 orderBy: { position: 'desc' }
             },
         },

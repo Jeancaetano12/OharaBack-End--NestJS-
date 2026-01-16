@@ -32,6 +32,7 @@ export class AuthService {
       globalName: user.globalName,
       avatarUrl: user.avatarUrl,
       serverAvatarUrl: user.serverAvatarUrl,
+      serverNickName: user.serverNickName,
     };
 
     return {

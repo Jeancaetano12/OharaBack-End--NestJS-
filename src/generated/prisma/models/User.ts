@@ -271,6 +271,8 @@ export type UserWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   roles?: Prisma.RoleListRelationFilter
+  profile?: Prisma.XOR<Prisma.ProfileNullableScalarRelationFilter, Prisma.ProfileWhereInput> | null
+  connections?: Prisma.ConnectionListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -291,6 +293,8 @@ export type UserOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   roles?: Prisma.RoleOrderByRelationAggregateInput
+  profile?: Prisma.ProfileOrderByWithRelationInput
+  connections?: Prisma.ConnectionOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -314,6 +318,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   roles?: Prisma.RoleListRelationFilter
+  profile?: Prisma.XOR<Prisma.ProfileNullableScalarRelationFilter, Prisma.ProfileWhereInput> | null
+  connections?: Prisma.ConnectionListRelationFilter
 }, "id" | "discordId">
 
 export type UserOrderByWithAggregationInput = {
@@ -378,6 +384,8 @@ export type UserCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   roles?: Prisma.RoleCreateNestedManyWithoutMembrosInput
+  profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
+  connections?: Prisma.ConnectionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -398,6 +406,8 @@ export type UserUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   roles?: Prisma.RoleUncheckedCreateNestedManyWithoutMembrosInput
+  profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
+  connections?: Prisma.ConnectionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -418,6 +428,8 @@ export type UserUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   roles?: Prisma.RoleUpdateManyWithoutMembrosNestedInput
+  profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
+  connections?: Prisma.ConnectionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -438,6 +450,8 @@ export type UserUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   roles?: Prisma.RoleUncheckedUpdateManyWithoutMembrosNestedInput
+  profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
+  connections?: Prisma.ConnectionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -564,6 +578,11 @@ export type UserOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
+export type UserScalarRelationFilter = {
+  is?: Prisma.UserWhereInput
+  isNot?: Prisma.UserWhereInput
+}
+
 export type StringFieldUpdateOperationsInput = {
   set?: string
 }
@@ -622,6 +641,34 @@ export type UserUncheckedUpdateManyWithoutRolesNestedInput = {
   deleteMany?: Prisma.UserScalarWhereInput | Prisma.UserScalarWhereInput[]
 }
 
+export type UserCreateNestedOneWithoutProfileInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutProfileInput, Prisma.UserUncheckedCreateWithoutProfileInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutProfileInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutProfileNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutProfileInput, Prisma.UserUncheckedCreateWithoutProfileInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutProfileInput
+  upsert?: Prisma.UserUpsertWithoutProfileInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutProfileInput, Prisma.UserUpdateWithoutProfileInput>, Prisma.UserUncheckedUpdateWithoutProfileInput>
+}
+
+export type UserCreateNestedOneWithoutConnectionsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutConnectionsInput, Prisma.UserUncheckedCreateWithoutConnectionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutConnectionsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutConnectionsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutConnectionsInput, Prisma.UserUncheckedCreateWithoutConnectionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutConnectionsInput
+  upsert?: Prisma.UserUpsertWithoutConnectionsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutConnectionsInput, Prisma.UserUpdateWithoutConnectionsInput>, Prisma.UserUncheckedUpdateWithoutConnectionsInput>
+}
+
 export type UserCreateWithoutRolesInput = {
   id?: string
   discordId: string
@@ -639,6 +686,8 @@ export type UserCreateWithoutRolesInput = {
   premiumSince?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
+  connections?: Prisma.ConnectionCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutRolesInput = {
@@ -658,6 +707,8 @@ export type UserUncheckedCreateWithoutRolesInput = {
   premiumSince?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
+  connections?: Prisma.ConnectionUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutRolesInput = {
@@ -703,6 +754,206 @@ export type UserScalarWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
 }
 
+export type UserCreateWithoutProfileInput = {
+  id?: string
+  discordId: string
+  username: string
+  globalName?: string | null
+  serverNickName?: string | null
+  avatarUrl?: string | null
+  serverAvatarUrl?: string | null
+  bannerUrl?: string | null
+  serverBannerUrl?: string | null
+  isBot?: boolean
+  colorHex?: string | null
+  accountCreatedAt: Date | string
+  joinedServerAt?: Date | string | null
+  premiumSince?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  roles?: Prisma.RoleCreateNestedManyWithoutMembrosInput
+  connections?: Prisma.ConnectionCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutProfileInput = {
+  id?: string
+  discordId: string
+  username: string
+  globalName?: string | null
+  serverNickName?: string | null
+  avatarUrl?: string | null
+  serverAvatarUrl?: string | null
+  bannerUrl?: string | null
+  serverBannerUrl?: string | null
+  isBot?: boolean
+  colorHex?: string | null
+  accountCreatedAt: Date | string
+  joinedServerAt?: Date | string | null
+  premiumSince?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  roles?: Prisma.RoleUncheckedCreateNestedManyWithoutMembrosInput
+  connections?: Prisma.ConnectionUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutProfileInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutProfileInput, Prisma.UserUncheckedCreateWithoutProfileInput>
+}
+
+export type UserUpsertWithoutProfileInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutProfileInput, Prisma.UserUncheckedUpdateWithoutProfileInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutProfileInput, Prisma.UserUncheckedCreateWithoutProfileInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutProfileInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutProfileInput, Prisma.UserUncheckedUpdateWithoutProfileInput>
+}
+
+export type UserUpdateWithoutProfileInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  discordId?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  globalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  serverNickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  serverAvatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bannerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  serverBannerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isBot?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  colorHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  accountCreatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  joinedServerAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  premiumSince?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  roles?: Prisma.RoleUpdateManyWithoutMembrosNestedInput
+  connections?: Prisma.ConnectionUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutProfileInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  discordId?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  globalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  serverNickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  serverAvatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bannerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  serverBannerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isBot?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  colorHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  accountCreatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  joinedServerAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  premiumSince?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  roles?: Prisma.RoleUncheckedUpdateManyWithoutMembrosNestedInput
+  connections?: Prisma.ConnectionUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutConnectionsInput = {
+  id?: string
+  discordId: string
+  username: string
+  globalName?: string | null
+  serverNickName?: string | null
+  avatarUrl?: string | null
+  serverAvatarUrl?: string | null
+  bannerUrl?: string | null
+  serverBannerUrl?: string | null
+  isBot?: boolean
+  colorHex?: string | null
+  accountCreatedAt: Date | string
+  joinedServerAt?: Date | string | null
+  premiumSince?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  roles?: Prisma.RoleCreateNestedManyWithoutMembrosInput
+  profile?: Prisma.ProfileCreateNestedOneWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutConnectionsInput = {
+  id?: string
+  discordId: string
+  username: string
+  globalName?: string | null
+  serverNickName?: string | null
+  avatarUrl?: string | null
+  serverAvatarUrl?: string | null
+  bannerUrl?: string | null
+  serverBannerUrl?: string | null
+  isBot?: boolean
+  colorHex?: string | null
+  accountCreatedAt: Date | string
+  joinedServerAt?: Date | string | null
+  premiumSince?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  roles?: Prisma.RoleUncheckedCreateNestedManyWithoutMembrosInput
+  profile?: Prisma.ProfileUncheckedCreateNestedOneWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutConnectionsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutConnectionsInput, Prisma.UserUncheckedCreateWithoutConnectionsInput>
+}
+
+export type UserUpsertWithoutConnectionsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutConnectionsInput, Prisma.UserUncheckedUpdateWithoutConnectionsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutConnectionsInput, Prisma.UserUncheckedCreateWithoutConnectionsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutConnectionsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutConnectionsInput, Prisma.UserUncheckedUpdateWithoutConnectionsInput>
+}
+
+export type UserUpdateWithoutConnectionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  discordId?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  globalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  serverNickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  serverAvatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bannerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  serverBannerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isBot?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  colorHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  accountCreatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  joinedServerAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  premiumSince?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  roles?: Prisma.RoleUpdateManyWithoutMembrosNestedInput
+  profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutConnectionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  discordId?: Prisma.StringFieldUpdateOperationsInput | string
+  username?: Prisma.StringFieldUpdateOperationsInput | string
+  globalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  serverNickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  serverAvatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bannerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  serverBannerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isBot?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  colorHex?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  accountCreatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  joinedServerAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  premiumSince?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  roles?: Prisma.RoleUncheckedUpdateManyWithoutMembrosNestedInput
+  profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
+}
+
 export type UserUpdateWithoutRolesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   discordId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -720,6 +971,8 @@ export type UserUpdateWithoutRolesInput = {
   premiumSince?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.ProfileUpdateOneWithoutUserNestedInput
+  connections?: Prisma.ConnectionUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRolesInput = {
@@ -739,6 +992,8 @@ export type UserUncheckedUpdateWithoutRolesInput = {
   premiumSince?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profile?: Prisma.ProfileUncheckedUpdateOneWithoutUserNestedInput
+  connections?: Prisma.ConnectionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutRolesInput = {
@@ -767,10 +1022,12 @@ export type UserUncheckedUpdateManyWithoutRolesInput = {
 
 export type UserCountOutputType = {
   roles: number
+  connections: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   roles?: boolean | UserCountOutputTypeCountRolesArgs
+  connections?: boolean | UserCountOutputTypeCountConnectionsArgs
 }
 
 /**
@@ -788,6 +1045,13 @@ export type UserCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensi
  */
 export type UserCountOutputTypeCountRolesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.RoleWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountConnectionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ConnectionWhereInput
 }
 
 
@@ -809,6 +1073,8 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   createdAt?: boolean
   updatedAt?: boolean
   roles?: boolean | Prisma.User$rolesArgs<ExtArgs>
+  profile?: boolean | Prisma.User$profileArgs<ExtArgs>
+  connections?: boolean | Prisma.User$connectionsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -872,6 +1138,8 @@ export type UserSelectScalar = {
 export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "discordId" | "username" | "globalName" | "serverNickName" | "avatarUrl" | "serverAvatarUrl" | "bannerUrl" | "serverBannerUrl" | "isBot" | "colorHex" | "accountCreatedAt" | "joinedServerAt" | "premiumSince" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   roles?: boolean | Prisma.User$rolesArgs<ExtArgs>
+  profile?: boolean | Prisma.User$profileArgs<ExtArgs>
+  connections?: boolean | Prisma.User$connectionsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -881,6 +1149,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   name: "User"
   objects: {
     roles: Prisma.$RolePayload<ExtArgs>[]
+    profile: Prisma.$ProfilePayload<ExtArgs> | null
+    connections: Prisma.$ConnectionPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1294,6 +1564,8 @@ readonly fields: UserFieldRefs;
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   roles<T extends Prisma.User$rolesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$rolesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RolePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  profile<T extends Prisma.User$profileArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$profileArgs<ExtArgs>>): Prisma.Prisma__ProfileClient<runtime.Types.Result.GetResult<Prisma.$ProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  connections<T extends Prisma.User$connectionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$connectionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ConnectionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1748,6 +2020,49 @@ export type User$rolesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
   take?: number
   skip?: number
   distinct?: Prisma.RoleScalarFieldEnum | Prisma.RoleScalarFieldEnum[]
+}
+
+/**
+ * User.profile
+ */
+export type User$profileArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Profile
+   */
+  select?: Prisma.ProfileSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Profile
+   */
+  omit?: Prisma.ProfileOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProfileInclude<ExtArgs> | null
+  where?: Prisma.ProfileWhereInput
+}
+
+/**
+ * User.connections
+ */
+export type User$connectionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Connection
+   */
+  select?: Prisma.ConnectionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Connection
+   */
+  omit?: Prisma.ConnectionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ConnectionInclude<ExtArgs> | null
+  where?: Prisma.ConnectionWhereInput
+  orderBy?: Prisma.ConnectionOrderByWithRelationInput | Prisma.ConnectionOrderByWithRelationInput[]
+  cursor?: Prisma.ConnectionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ConnectionScalarFieldEnum | Prisma.ConnectionScalarFieldEnum[]
 }
 
 /**

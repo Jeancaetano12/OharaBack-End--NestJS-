@@ -76,14 +76,17 @@ model Profile {
   
   // Campos que o usuário edita
   bio         String? @db.Text // "Sobre Mim"
-  website     String?
+  socialLinks Json?
   birthDate   DateTime?
-  customTheme String? // Ex: "dark", "dracula" (preferência do site)
-
+  AvatarSite  String? // Ex: "dark", "dracula" (preferência do site)
+  BannerSite  String?
+  
   // A chave estrangeira que liga ao Membro
   userId      String  @unique // @unique garante que 1 Membro só tem 1 Perfil
   user        User    @relation(fields: [userId], references: [id])
 
+  // Campos de Controle do Banco
+  createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
   @@map("Perfis")
