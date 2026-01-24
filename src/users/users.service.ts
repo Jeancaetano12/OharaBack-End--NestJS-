@@ -60,6 +60,7 @@ export class UsersService {
             select: {
               provider: true,
               providerId: true,
+              userId: true,
             }
           }
         }
@@ -78,7 +79,7 @@ export class UsersService {
       // Se já existe, atualiza os campos enviados
       update: {
         bio: data.bio,
-        socialLinks: data.socialLinks,
+        socialLinks: data.socialLinks as any,
         AvatarSite: data.AvatarSite,
         BannerSite: data.BannerSite,
       },
@@ -87,7 +88,7 @@ export class UsersService {
       create: {
         userId: userId, // <--- O elo de ligação
         bio: data.bio,
-        socialLinks: data.socialLinks,
+        socialLinks: data.socialLinks as any,
         AvatarSite: data.AvatarSite,
         BannerSite: data.BannerSite,
       },

@@ -51,7 +51,7 @@ export class MembrosService {
                     },
                 });
             });
-            this.logger.log(`Iniciando transação para sincronização de membros...`);
+            this.logger.log(`Membros sincronizados com sucesso.`);
             return this.prisma.$transaction(transaction);
         }   catch (error) {
             this.logger.warn(`Erro ao sincronizar membros: ${error.message}`);
@@ -60,7 +60,7 @@ export class MembrosService {
     }
 
     async findAll(page: string, limit: string) {
-        const pageNumber = parseInt(page, 6) > 0 ? parseInt(page, 6) : 1;
+        const pageNumber = parseInt(page, 10) > 0 ? parseInt(page, 10) : 1;
         const pageSize = parseInt(limit, 6) > 0 ? parseInt(limit, 6) : 6;
 
         // --- ETAPA 1: Separar os IDs ---
