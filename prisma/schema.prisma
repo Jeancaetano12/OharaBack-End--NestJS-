@@ -17,7 +17,7 @@ datasource db {
 model User {
   id              String    @id @default(uuid()) // ID interno do banco
   discordId       String    @unique              // ID do Discord (chave única para busca)
-  
+  email           String?   @unique              // Email do usuário (pode ser nulo)
   // Dados de Identificação
   username        String
   globalName      String?
@@ -83,7 +83,7 @@ model Profile {
   
   // A chave estrangeira que liga ao Membro
   userId      String  @unique // @unique garante que 1 Membro só tem 1 Perfil
-  user        User    @relation(fields: [userId], references: [id])
+  user        User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   // Campos de Controle do Banco
   createdAt   DateTime @default(now())

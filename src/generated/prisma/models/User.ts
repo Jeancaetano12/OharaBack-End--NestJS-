@@ -27,6 +27,7 @@ export type AggregateUser = {
 export type UserMinAggregateOutputType = {
   id: string | null
   discordId: string | null
+  email: string | null
   username: string | null
   globalName: string | null
   serverNickName: string | null
@@ -46,6 +47,7 @@ export type UserMinAggregateOutputType = {
 export type UserMaxAggregateOutputType = {
   id: string | null
   discordId: string | null
+  email: string | null
   username: string | null
   globalName: string | null
   serverNickName: string | null
@@ -65,6 +67,7 @@ export type UserMaxAggregateOutputType = {
 export type UserCountAggregateOutputType = {
   id: number
   discordId: number
+  email: number
   username: number
   globalName: number
   serverNickName: number
@@ -86,6 +89,7 @@ export type UserCountAggregateOutputType = {
 export type UserMinAggregateInputType = {
   id?: true
   discordId?: true
+  email?: true
   username?: true
   globalName?: true
   serverNickName?: true
@@ -105,6 +109,7 @@ export type UserMinAggregateInputType = {
 export type UserMaxAggregateInputType = {
   id?: true
   discordId?: true
+  email?: true
   username?: true
   globalName?: true
   serverNickName?: true
@@ -124,6 +129,7 @@ export type UserMaxAggregateInputType = {
 export type UserCountAggregateInputType = {
   id?: true
   discordId?: true
+  email?: true
   username?: true
   globalName?: true
   serverNickName?: true
@@ -216,6 +222,7 @@ export type UserGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
 export type UserGroupByOutputType = {
   id: string
   discordId: string
+  email: string | null
   username: string
   globalName: string | null
   serverNickName: string | null
@@ -256,6 +263,7 @@ export type UserWhereInput = {
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   id?: Prisma.StringFilter<"User"> | string
   discordId?: Prisma.StringFilter<"User"> | string
+  email?: Prisma.StringNullableFilter<"User"> | string | null
   username?: Prisma.StringFilter<"User"> | string
   globalName?: Prisma.StringNullableFilter<"User"> | string | null
   serverNickName?: Prisma.StringNullableFilter<"User"> | string | null
@@ -278,6 +286,7 @@ export type UserWhereInput = {
 export type UserOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   discordId?: Prisma.SortOrder
+  email?: Prisma.SortOrderInput | Prisma.SortOrder
   username?: Prisma.SortOrder
   globalName?: Prisma.SortOrderInput | Prisma.SortOrder
   serverNickName?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -300,6 +309,7 @@ export type UserOrderByWithRelationInput = {
 export type UserWhereUniqueInput = Prisma.AtLeast<{
   id?: string
   discordId?: string
+  email?: string
   AND?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   OR?: Prisma.UserWhereInput[]
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
@@ -320,11 +330,12 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   roles?: Prisma.RoleListRelationFilter
   profile?: Prisma.XOR<Prisma.ProfileNullableScalarRelationFilter, Prisma.ProfileWhereInput> | null
   connections?: Prisma.ConnectionListRelationFilter
-}, "id" | "discordId">
+}, "id" | "discordId" | "email">
 
 export type UserOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   discordId?: Prisma.SortOrder
+  email?: Prisma.SortOrderInput | Prisma.SortOrder
   username?: Prisma.SortOrder
   globalName?: Prisma.SortOrderInput | Prisma.SortOrder
   serverNickName?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -350,6 +361,7 @@ export type UserScalarWhereWithAggregatesInput = {
   NOT?: Prisma.UserScalarWhereWithAggregatesInput | Prisma.UserScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"User"> | string
   discordId?: Prisma.StringWithAggregatesFilter<"User"> | string
+  email?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   username?: Prisma.StringWithAggregatesFilter<"User"> | string
   globalName?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   serverNickName?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
@@ -369,6 +381,7 @@ export type UserScalarWhereWithAggregatesInput = {
 export type UserCreateInput = {
   id?: string
   discordId: string
+  email?: string | null
   username: string
   globalName?: string | null
   serverNickName?: string | null
@@ -391,6 +404,7 @@ export type UserCreateInput = {
 export type UserUncheckedCreateInput = {
   id?: string
   discordId: string
+  email?: string | null
   username: string
   globalName?: string | null
   serverNickName?: string | null
@@ -413,6 +427,7 @@ export type UserUncheckedCreateInput = {
 export type UserUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   discordId?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   globalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   serverNickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -435,6 +450,7 @@ export type UserUpdateInput = {
 export type UserUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   discordId?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   globalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   serverNickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -457,6 +473,7 @@ export type UserUncheckedUpdateInput = {
 export type UserCreateManyInput = {
   id?: string
   discordId: string
+  email?: string | null
   username: string
   globalName?: string | null
   serverNickName?: string | null
@@ -476,6 +493,7 @@ export type UserCreateManyInput = {
 export type UserUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   discordId?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   globalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   serverNickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -495,6 +513,7 @@ export type UserUpdateManyMutationInput = {
 export type UserUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   discordId?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   globalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   serverNickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -514,6 +533,7 @@ export type UserUncheckedUpdateManyInput = {
 export type UserCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   discordId?: Prisma.SortOrder
+  email?: Prisma.SortOrder
   username?: Prisma.SortOrder
   globalName?: Prisma.SortOrder
   serverNickName?: Prisma.SortOrder
@@ -533,6 +553,7 @@ export type UserCountOrderByAggregateInput = {
 export type UserMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   discordId?: Prisma.SortOrder
+  email?: Prisma.SortOrder
   username?: Prisma.SortOrder
   globalName?: Prisma.SortOrder
   serverNickName?: Prisma.SortOrder
@@ -552,6 +573,7 @@ export type UserMaxOrderByAggregateInput = {
 export type UserMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   discordId?: Prisma.SortOrder
+  email?: Prisma.SortOrder
   username?: Prisma.SortOrder
   globalName?: Prisma.SortOrder
   serverNickName?: Prisma.SortOrder
@@ -672,6 +694,7 @@ export type UserUpdateOneRequiredWithoutConnectionsNestedInput = {
 export type UserCreateWithoutRolesInput = {
   id?: string
   discordId: string
+  email?: string | null
   username: string
   globalName?: string | null
   serverNickName?: string | null
@@ -693,6 +716,7 @@ export type UserCreateWithoutRolesInput = {
 export type UserUncheckedCreateWithoutRolesInput = {
   id?: string
   discordId: string
+  email?: string | null
   username: string
   globalName?: string | null
   serverNickName?: string | null
@@ -738,6 +762,7 @@ export type UserScalarWhereInput = {
   NOT?: Prisma.UserScalarWhereInput | Prisma.UserScalarWhereInput[]
   id?: Prisma.StringFilter<"User"> | string
   discordId?: Prisma.StringFilter<"User"> | string
+  email?: Prisma.StringNullableFilter<"User"> | string | null
   username?: Prisma.StringFilter<"User"> | string
   globalName?: Prisma.StringNullableFilter<"User"> | string | null
   serverNickName?: Prisma.StringNullableFilter<"User"> | string | null
@@ -757,6 +782,7 @@ export type UserScalarWhereInput = {
 export type UserCreateWithoutProfileInput = {
   id?: string
   discordId: string
+  email?: string | null
   username: string
   globalName?: string | null
   serverNickName?: string | null
@@ -778,6 +804,7 @@ export type UserCreateWithoutProfileInput = {
 export type UserUncheckedCreateWithoutProfileInput = {
   id?: string
   discordId: string
+  email?: string | null
   username: string
   globalName?: string | null
   serverNickName?: string | null
@@ -815,6 +842,7 @@ export type UserUpdateToOneWithWhereWithoutProfileInput = {
 export type UserUpdateWithoutProfileInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   discordId?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   globalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   serverNickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -836,6 +864,7 @@ export type UserUpdateWithoutProfileInput = {
 export type UserUncheckedUpdateWithoutProfileInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   discordId?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   globalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   serverNickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -857,6 +886,7 @@ export type UserUncheckedUpdateWithoutProfileInput = {
 export type UserCreateWithoutConnectionsInput = {
   id?: string
   discordId: string
+  email?: string | null
   username: string
   globalName?: string | null
   serverNickName?: string | null
@@ -878,6 +908,7 @@ export type UserCreateWithoutConnectionsInput = {
 export type UserUncheckedCreateWithoutConnectionsInput = {
   id?: string
   discordId: string
+  email?: string | null
   username: string
   globalName?: string | null
   serverNickName?: string | null
@@ -915,6 +946,7 @@ export type UserUpdateToOneWithWhereWithoutConnectionsInput = {
 export type UserUpdateWithoutConnectionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   discordId?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   globalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   serverNickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -936,6 +968,7 @@ export type UserUpdateWithoutConnectionsInput = {
 export type UserUncheckedUpdateWithoutConnectionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   discordId?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   globalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   serverNickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -957,6 +990,7 @@ export type UserUncheckedUpdateWithoutConnectionsInput = {
 export type UserUpdateWithoutRolesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   discordId?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   globalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   serverNickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -978,6 +1012,7 @@ export type UserUpdateWithoutRolesInput = {
 export type UserUncheckedUpdateWithoutRolesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   discordId?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   globalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   serverNickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -999,6 +1034,7 @@ export type UserUncheckedUpdateWithoutRolesInput = {
 export type UserUncheckedUpdateManyWithoutRolesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   discordId?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   username?: Prisma.StringFieldUpdateOperationsInput | string
   globalName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   serverNickName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1058,6 +1094,7 @@ export type UserCountOutputTypeCountConnectionsArgs<ExtArgs extends runtime.Type
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   discordId?: boolean
+  email?: boolean
   username?: boolean
   globalName?: boolean
   serverNickName?: boolean
@@ -1081,6 +1118,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
 export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   discordId?: boolean
+  email?: boolean
   username?: boolean
   globalName?: boolean
   serverNickName?: boolean
@@ -1100,6 +1138,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
 export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   discordId?: boolean
+  email?: boolean
   username?: boolean
   globalName?: boolean
   serverNickName?: boolean
@@ -1119,6 +1158,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
 export type UserSelectScalar = {
   id?: boolean
   discordId?: boolean
+  email?: boolean
   username?: boolean
   globalName?: boolean
   serverNickName?: boolean
@@ -1135,7 +1175,7 @@ export type UserSelectScalar = {
   updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "discordId" | "username" | "globalName" | "serverNickName" | "avatarUrl" | "serverAvatarUrl" | "bannerUrl" | "serverBannerUrl" | "isBot" | "colorHex" | "accountCreatedAt" | "joinedServerAt" | "premiumSince" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "discordId" | "email" | "username" | "globalName" | "serverNickName" | "avatarUrl" | "serverAvatarUrl" | "bannerUrl" | "serverBannerUrl" | "isBot" | "colorHex" | "accountCreatedAt" | "joinedServerAt" | "premiumSince" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   roles?: boolean | Prisma.User$rolesArgs<ExtArgs>
   profile?: boolean | Prisma.User$profileArgs<ExtArgs>
@@ -1155,6 +1195,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     discordId: string
+    email: string | null
     username: string
     globalName: string | null
     serverNickName: string | null
@@ -1597,6 +1638,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
 export interface UserFieldRefs {
   readonly id: Prisma.FieldRef<"User", 'String'>
   readonly discordId: Prisma.FieldRef<"User", 'String'>
+  readonly email: Prisma.FieldRef<"User", 'String'>
   readonly username: Prisma.FieldRef<"User", 'String'>
   readonly globalName: Prisma.FieldRef<"User", 'String'>
   readonly serverNickName: Prisma.FieldRef<"User", 'String'>
