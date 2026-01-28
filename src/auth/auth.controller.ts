@@ -22,7 +22,7 @@ export class AuthController {
     this.logger.log(`Usuário autenticado: ${user.username}, email: ${user.email} (ID: ${user.discordId})`);
     
     const jwt = await this.authService.login(user);
-    this.logger.log(`Token JWT gerado para o usuário ${user.username}: ${jwt.access_token}`);
+    this.logger.log(`Token JWT gerado para o usuário ${user.username}`);
     
     res.redirect(`${process.env.FRONTEND_URL}/auth/success?token=${jwt.access_token}`);
   }
