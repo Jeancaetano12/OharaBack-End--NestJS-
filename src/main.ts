@@ -15,7 +15,7 @@ async function bootstrap() {
   }));
 
   app.enableCors({
-    origin:['http://localhost:3001', 'http://localhost:3000', 'https://ohara-back-end.vercel.app'],
+    origin:['http://localhost:3001', 'http://localhost:3000', 'https://ohara-back-end.vercel.app', 'https://ohara-discord-site.vercel.app'],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     credentials: true,
   });
