@@ -3,6 +3,7 @@ import { CargosService } from './cargos.service';
 import { BotKeyGuard } from '../auth/bot-key.guard';
 import { CreateCargoDto } from './dto/create-cargo.dto';
 import { SkipThrottle } from '@nestjs/throttler';
+import { ApiBody } from '@nestjs/swagger';
 
 @Controller('cargos')
 @UseGuards(BotKeyGuard)
@@ -13,6 +14,10 @@ export class CargosController {
 
   @Post()
   @SkipThrottle()
+  @ApiBody({
+    description: 'Array de objetos representando os cargos do servidor a serem sincronizados, recebidos pelo bot do Discord',
+    type: [CreateCargoDto],
+  })
   create(@Body() createCargoDto: CreateCargoDto[]) {
     this.logger.log(`Cargos recebidos no controlador: ${createCargoDto.length}`);
     return this.cargosService.syncRoles(createCargoDto);

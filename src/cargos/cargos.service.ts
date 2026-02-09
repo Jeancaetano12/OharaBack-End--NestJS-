@@ -38,7 +38,7 @@ export class CargosService {
             this.logger.log(`Cargos sincronizados com sucesso.`);
             return this.prisma.$transaction(transaction);    
         }   catch (error) {
-            this.logger.error(`Erro ao sincronizar cargos: ${error.message}`);
+            this.logger.error(`Erro ao sincronizar cargos: ${console.error(error)}`);
             throw new Error(`Erro ao sincronizar cargos`);
         }
     }

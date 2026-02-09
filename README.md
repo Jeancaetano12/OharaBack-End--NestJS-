@@ -2,6 +2,8 @@
 
 O OharaBack-End é uma API REST robusta desenvolvida com o framework NestJS. Este projeto serve como o núcleo de processamento de dados para o ecossistema "Ohara", gerenciando a integração entre o bot do Discord, o banco de dados e o frontend da aplicação.
 
+Documentação Swagger: https://ohara-back-end.vercel.app/api-docs
+
 ## 🚀 Tecnologias Utilizadas
 - NestJS: Framework Node.js para construção de aplicativos escaláveis e eficientes.
 

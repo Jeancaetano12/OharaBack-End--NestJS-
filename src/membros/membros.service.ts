@@ -54,7 +54,7 @@ export class MembrosService {
             this.logger.log(`Membros sincronizados com sucesso.`);
             return this.prisma.$transaction(transaction);
         }   catch (error) {
-            this.logger.warn(`Erro ao sincronizar membros: ${error.message}`);
+            this.logger.warn(`Erro ao sincronizar membros: ${console.error(error)}`);
             throw new Error(`Erro ao sincronizar membros`);
         }
     }
