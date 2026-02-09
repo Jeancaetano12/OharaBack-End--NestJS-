@@ -19,10 +19,10 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
 
   SwaggerModule.setup('api-docs', app, document, {
-    customCssUrl: '/swagger-ui/swagger-ui.css',
+    customCssUrl: '/swagger/swagger-ui.css',
     customJs: [
-      '/swagger-ui/swagger-ui-bundle.js',
-      '/swagger-ui/swagger-ui-standalone-preset.js',
+      '/swagger/swagger-ui-bundle.js',
+      '/swagger/swagger-ui-standalone-preset.js',
     ],
     customfavIcon: '/swagger-ui/favicon-32x32.png',
   });
