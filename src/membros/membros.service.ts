@@ -61,7 +61,7 @@ export class MembrosService {
 
     async findAll(page: string, limit: string) {
         const pageNumber = parseInt(page, 10) > 0 ? parseInt(page, 10) : 1;
-        const pageSize = parseInt(limit, 6) > 0 ? parseInt(limit, 6) : 6;
+        const pageSize = parseInt(limit, 10) > 0 ? parseInt(limit, 10) : 10;
 
         // --- ETAPA 1: Separar os IDs ---
 
@@ -134,6 +134,7 @@ export class MembrosService {
                 isBot: true,
                 colorHex: true,
                 joinedServerAt: true,
+                updatedAt: true,
                 roles: {
                     select: {
                         id: true,

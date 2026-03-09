@@ -30,8 +30,8 @@ export class MembrosController {
     type: Object,
   })
   @ApiQuery({ name: 'page', description: 'Número da página a ser listada', required: false, example: '1', type: String })
-  @ApiQuery({ name: 'limit', description: 'Número de membros por página', required: false, example: '6', type: String })
-  findAll(@Query('page') page: string = '1', @Query('limit') limit: string = '6') {
+  @ApiQuery({ name: 'limit', description: 'Número de membros por página', required: false, example: '10', type: String })
+  findAll(@Query('page') page: string = '1', @Query('limit') limit: string = '10') {
     this.logger.log(`Listando membros - Página: ${page}, Limite: ${limit}`);
     return this.membrosService.findAll(page, limit);
   }
