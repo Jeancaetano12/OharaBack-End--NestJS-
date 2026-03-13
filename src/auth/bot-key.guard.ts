@@ -5,7 +5,7 @@ export class BotKeyGuard implements CanActivate {
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
     
-    // Pegamos a chave enviada no Header da requisição
+   
     const apiKey = request.headers['x-api-key'];
     
     const validKey = process.env.BOT_KEY;

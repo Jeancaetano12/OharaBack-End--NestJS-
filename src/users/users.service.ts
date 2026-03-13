@@ -21,7 +21,6 @@ export class UsersService {
   }
 
   async findPublicProfile(discordId: string) {
-    this.logger.log(`Exibindo perfil público do usuário com Discord ID: ${discordId}`);
     const user = await this.prisma.user.findUnique({
         where: {discordId: discordId },
         select: {
@@ -66,8 +65,10 @@ export class UsersService {
         }
     });
     if (!user) {
+        this.logger.warn(`Perfil público não encontrado para Discord ID: ${discordId}`);
         throw new NotFoundException('Usuário não encontrado.');
     }
+    this.logger.log(`Exibindo perfil público do usuário com Discord ID: ${discordId}`);
     return user;
   }
   // Atualiza (ou cria) o perfil

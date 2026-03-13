@@ -5,6 +5,7 @@ import { DiscordStrategy } from './discord.strategy';
 import { PrismaService } from '../prisma.service';
 import { JwtModule } from '@nestjs/jwt'; 
 import { JwtStrategy } from './jwt.strategy'; 
+import { SpotifyStrategy } from './spotify.strategy';
 
 @Module({
   imports: [
@@ -14,6 +15,6 @@ import { JwtStrategy } from './jwt.strategy';
     }),
   ],
   controllers: [AuthController],
-  providers: [AuthService, DiscordStrategy, PrismaService, JwtStrategy],
+  providers: [AuthService, DiscordStrategy, PrismaService, JwtStrategy, SpotifyStrategy],
 })
 export class AuthModule {}

@@ -47,4 +47,45 @@ export class AuthService {
       access_token: this.jwtService.sign(payload),
     }
   }
+
+  async linkSpotifyAccount(jwtToken: string, spotifyProfile: any, spotifyAccessToken: string) {
+    try {
+      const decoded = this.jwtService.verify(jwtToken);
+      const userId = decoded.sub; 
+      
+      if (!userId) {
+        return null;
+      }
+      await this.prisma.connection.upsert({
+        where: {
+          provider_providerId: {
+            provider: 'spotify',
+            providerId: spotifyProfile.id,
+          },
+        },
+        update: {
+          accessToken: spotifyAccessToken,
+          userId: userId,
+        },
+        create: {
+          provider: 'spotify',
+          providerId: spotifyProfile.id,
+          accessToken: spotifyAccessToken,
+          userId: userId,
+        }
+      });
+      this.logger.log(`Spotify vinculado com sucesso para o usuário ID: ${userId}, Spotify ID: ${spotifyProfile.id}`);
+
+      return {
+        username: decoded.username,
+        email: decoded.email,
+        spotifyId: spotifyProfile.id,
+        discordId: decoded.discordId,
+      }
+      
+    } catch (error) {
+      this.logger.error(`Erro ao vincular Spotify: ${error}`);
+      return null;
+    }
+  }
 }
