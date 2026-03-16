@@ -38,4 +38,13 @@ export class UsersController {
   async getPublicProfile(@Param('discordId') discordId: string) {
     return this.usersService.findPublicProfile(discordId);
   }
-}
+
+  @ApiOperation({ summary: 'Buscar perfil do Spotify por Discord ID' })
+  @ApiParam({ name: 'discordId', description: 'O ID numérico do usuário no Discord', example: '243917401551273985' })
+  @ApiResponse({ status: 200, description: 'Retorna o perfil do Spotify do usuário.' })
+  @ApiResponse({ status: 404, description: 'Usuário não encontrado.' })
+  @Get(':discordId/spotify')
+  async getSpotifyProfile(@Param('discordId') discordId: string) {
+    return this.usersService.findSpotifyProfile(discordId);
+  }
+ }

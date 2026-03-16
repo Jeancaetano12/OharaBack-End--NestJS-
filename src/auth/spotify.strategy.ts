@@ -21,7 +21,7 @@ export class SpotifyStrategy extends PassportStrategy(Strategy, 'spotify') {
     async validate(
         req: any,
         accessToken: string,
-        refreshToken: string, // deixa aqui pra usar depois
+        refreshToken: string, 
         ...args: any[]
     ): Promise<any> {
 
@@ -38,6 +38,6 @@ export class SpotifyStrategy extends PassportStrategy(Strategy, 'spotify') {
         const jwtToken = req.query.state;
 
         this.logger.log(`Perfil do Spotify vinculado, ID: ${profile.id}, Nome: ${profile.displayName}`);
-        return this.authService.linkSpotifyAccount(jwtToken, profile, accessToken);
+        return this.authService.linkSpotifyAccount(jwtToken, profile, accessToken, refreshToken);
     }
 }

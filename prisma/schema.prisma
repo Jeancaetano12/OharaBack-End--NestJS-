@@ -97,6 +97,7 @@ model Connection {
   provider     String   // "steam", "spotify"
   providerId   String
   accessToken  String?
+  refreshToken String?
   
   userId       String
   user         User     @relation(fields: [userId], references: [id])

@@ -5,7 +5,7 @@ import { DiscordAuthGuard } from './discord-auth.guard';
 import { SpotifyLoginGuard } from './spotify-login.guard';
 import { SpotifyAuthGuard } from './spotify-auth.guard';
 ;
-import { ApiOperation, ApiResponse, ApiTags, ApiExcludeEndpoint } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('auth')
 @Controller('auth')

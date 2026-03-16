@@ -29,6 +29,7 @@ export type ConnectionMinAggregateOutputType = {
   provider: string | null
   providerId: string | null
   accessToken: string | null
+  refreshToken: string | null
   userId: string | null
 }
 
@@ -37,6 +38,7 @@ export type ConnectionMaxAggregateOutputType = {
   provider: string | null
   providerId: string | null
   accessToken: string | null
+  refreshToken: string | null
   userId: string | null
 }
 
@@ -45,6 +47,7 @@ export type ConnectionCountAggregateOutputType = {
   provider: number
   providerId: number
   accessToken: number
+  refreshToken: number
   userId: number
   _all: number
 }
@@ -55,6 +58,7 @@ export type ConnectionMinAggregateInputType = {
   provider?: true
   providerId?: true
   accessToken?: true
+  refreshToken?: true
   userId?: true
 }
 
@@ -63,6 +67,7 @@ export type ConnectionMaxAggregateInputType = {
   provider?: true
   providerId?: true
   accessToken?: true
+  refreshToken?: true
   userId?: true
 }
 
@@ -71,6 +76,7 @@ export type ConnectionCountAggregateInputType = {
   provider?: true
   providerId?: true
   accessToken?: true
+  refreshToken?: true
   userId?: true
   _all?: true
 }
@@ -152,6 +158,7 @@ export type ConnectionGroupByOutputType = {
   provider: string
   providerId: string
   accessToken: string | null
+  refreshToken: string | null
   userId: string
   _count: ConnectionCountAggregateOutputType | null
   _min: ConnectionMinAggregateOutputType | null
@@ -181,6 +188,7 @@ export type ConnectionWhereInput = {
   provider?: Prisma.StringFilter<"Connection"> | string
   providerId?: Prisma.StringFilter<"Connection"> | string
   accessToken?: Prisma.StringNullableFilter<"Connection"> | string | null
+  refreshToken?: Prisma.StringNullableFilter<"Connection"> | string | null
   userId?: Prisma.StringFilter<"Connection"> | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
@@ -190,6 +198,7 @@ export type ConnectionOrderByWithRelationInput = {
   provider?: Prisma.SortOrder
   providerId?: Prisma.SortOrder
   accessToken?: Prisma.SortOrderInput | Prisma.SortOrder
+  refreshToken?: Prisma.SortOrderInput | Prisma.SortOrder
   userId?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
 }
@@ -203,6 +212,7 @@ export type ConnectionWhereUniqueInput = Prisma.AtLeast<{
   provider?: Prisma.StringFilter<"Connection"> | string
   providerId?: Prisma.StringFilter<"Connection"> | string
   accessToken?: Prisma.StringNullableFilter<"Connection"> | string | null
+  refreshToken?: Prisma.StringNullableFilter<"Connection"> | string | null
   userId?: Prisma.StringFilter<"Connection"> | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id" | "provider_providerId">
@@ -212,6 +222,7 @@ export type ConnectionOrderByWithAggregationInput = {
   provider?: Prisma.SortOrder
   providerId?: Prisma.SortOrder
   accessToken?: Prisma.SortOrderInput | Prisma.SortOrder
+  refreshToken?: Prisma.SortOrderInput | Prisma.SortOrder
   userId?: Prisma.SortOrder
   _count?: Prisma.ConnectionCountOrderByAggregateInput
   _max?: Prisma.ConnectionMaxOrderByAggregateInput
@@ -226,6 +237,7 @@ export type ConnectionScalarWhereWithAggregatesInput = {
   provider?: Prisma.StringWithAggregatesFilter<"Connection"> | string
   providerId?: Prisma.StringWithAggregatesFilter<"Connection"> | string
   accessToken?: Prisma.StringNullableWithAggregatesFilter<"Connection"> | string | null
+  refreshToken?: Prisma.StringNullableWithAggregatesFilter<"Connection"> | string | null
   userId?: Prisma.StringWithAggregatesFilter<"Connection"> | string
 }
 
@@ -234,6 +246,7 @@ export type ConnectionCreateInput = {
   provider: string
   providerId: string
   accessToken?: string | null
+  refreshToken?: string | null
   user: Prisma.UserCreateNestedOneWithoutConnectionsInput
 }
 
@@ -242,6 +255,7 @@ export type ConnectionUncheckedCreateInput = {
   provider: string
   providerId: string
   accessToken?: string | null
+  refreshToken?: string | null
   userId: string
 }
 
@@ -250,6 +264,7 @@ export type ConnectionUpdateInput = {
   provider?: Prisma.StringFieldUpdateOperationsInput | string
   providerId?: Prisma.StringFieldUpdateOperationsInput | string
   accessToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutConnectionsNestedInput
 }
 
@@ -258,6 +273,7 @@ export type ConnectionUncheckedUpdateInput = {
   provider?: Prisma.StringFieldUpdateOperationsInput | string
   providerId?: Prisma.StringFieldUpdateOperationsInput | string
   accessToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
@@ -266,6 +282,7 @@ export type ConnectionCreateManyInput = {
   provider: string
   providerId: string
   accessToken?: string | null
+  refreshToken?: string | null
   userId: string
 }
 
@@ -274,6 +291,7 @@ export type ConnectionUpdateManyMutationInput = {
   provider?: Prisma.StringFieldUpdateOperationsInput | string
   providerId?: Prisma.StringFieldUpdateOperationsInput | string
   accessToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type ConnectionUncheckedUpdateManyInput = {
@@ -281,6 +299,7 @@ export type ConnectionUncheckedUpdateManyInput = {
   provider?: Prisma.StringFieldUpdateOperationsInput | string
   providerId?: Prisma.StringFieldUpdateOperationsInput | string
   accessToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
@@ -304,6 +323,7 @@ export type ConnectionCountOrderByAggregateInput = {
   provider?: Prisma.SortOrder
   providerId?: Prisma.SortOrder
   accessToken?: Prisma.SortOrder
+  refreshToken?: Prisma.SortOrder
   userId?: Prisma.SortOrder
 }
 
@@ -312,6 +332,7 @@ export type ConnectionMaxOrderByAggregateInput = {
   provider?: Prisma.SortOrder
   providerId?: Prisma.SortOrder
   accessToken?: Prisma.SortOrder
+  refreshToken?: Prisma.SortOrder
   userId?: Prisma.SortOrder
 }
 
@@ -320,6 +341,7 @@ export type ConnectionMinOrderByAggregateInput = {
   provider?: Prisma.SortOrder
   providerId?: Prisma.SortOrder
   accessToken?: Prisma.SortOrder
+  refreshToken?: Prisma.SortOrder
   userId?: Prisma.SortOrder
 }
 
@@ -370,6 +392,7 @@ export type ConnectionCreateWithoutUserInput = {
   provider: string
   providerId: string
   accessToken?: string | null
+  refreshToken?: string | null
 }
 
 export type ConnectionUncheckedCreateWithoutUserInput = {
@@ -377,6 +400,7 @@ export type ConnectionUncheckedCreateWithoutUserInput = {
   provider: string
   providerId: string
   accessToken?: string | null
+  refreshToken?: string | null
 }
 
 export type ConnectionCreateOrConnectWithoutUserInput = {
@@ -413,6 +437,7 @@ export type ConnectionScalarWhereInput = {
   provider?: Prisma.StringFilter<"Connection"> | string
   providerId?: Prisma.StringFilter<"Connection"> | string
   accessToken?: Prisma.StringNullableFilter<"Connection"> | string | null
+  refreshToken?: Prisma.StringNullableFilter<"Connection"> | string | null
   userId?: Prisma.StringFilter<"Connection"> | string
 }
 
@@ -421,6 +446,7 @@ export type ConnectionCreateManyUserInput = {
   provider: string
   providerId: string
   accessToken?: string | null
+  refreshToken?: string | null
 }
 
 export type ConnectionUpdateWithoutUserInput = {
@@ -428,6 +454,7 @@ export type ConnectionUpdateWithoutUserInput = {
   provider?: Prisma.StringFieldUpdateOperationsInput | string
   providerId?: Prisma.StringFieldUpdateOperationsInput | string
   accessToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type ConnectionUncheckedUpdateWithoutUserInput = {
@@ -435,6 +462,7 @@ export type ConnectionUncheckedUpdateWithoutUserInput = {
   provider?: Prisma.StringFieldUpdateOperationsInput | string
   providerId?: Prisma.StringFieldUpdateOperationsInput | string
   accessToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type ConnectionUncheckedUpdateManyWithoutUserInput = {
@@ -442,6 +470,7 @@ export type ConnectionUncheckedUpdateManyWithoutUserInput = {
   provider?: Prisma.StringFieldUpdateOperationsInput | string
   providerId?: Prisma.StringFieldUpdateOperationsInput | string
   accessToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  refreshToken?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -451,6 +480,7 @@ export type ConnectionSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   provider?: boolean
   providerId?: boolean
   accessToken?: boolean
+  refreshToken?: boolean
   userId?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["connection"]>
@@ -460,6 +490,7 @@ export type ConnectionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   provider?: boolean
   providerId?: boolean
   accessToken?: boolean
+  refreshToken?: boolean
   userId?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["connection"]>
@@ -469,6 +500,7 @@ export type ConnectionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   provider?: boolean
   providerId?: boolean
   accessToken?: boolean
+  refreshToken?: boolean
   userId?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["connection"]>
@@ -478,10 +510,11 @@ export type ConnectionSelectScalar = {
   provider?: boolean
   providerId?: boolean
   accessToken?: boolean
+  refreshToken?: boolean
   userId?: boolean
 }
 
-export type ConnectionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "provider" | "providerId" | "accessToken" | "userId", ExtArgs["result"]["connection"]>
+export type ConnectionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "provider" | "providerId" | "accessToken" | "refreshToken" | "userId", ExtArgs["result"]["connection"]>
 export type ConnectionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
@@ -502,6 +535,7 @@ export type $ConnectionPayload<ExtArgs extends runtime.Types.Extensions.Internal
     provider: string
     providerId: string
     accessToken: string | null
+    refreshToken: string | null
     userId: string
   }, ExtArgs["result"]["connection"]>
   composites: {}
@@ -931,6 +965,7 @@ export interface ConnectionFieldRefs {
   readonly provider: Prisma.FieldRef<"Connection", 'String'>
   readonly providerId: Prisma.FieldRef<"Connection", 'String'>
   readonly accessToken: Prisma.FieldRef<"Connection", 'String'>
+  readonly refreshToken: Prisma.FieldRef<"Connection", 'String'>
   readonly userId: Prisma.FieldRef<"Connection", 'String'>
 }
     

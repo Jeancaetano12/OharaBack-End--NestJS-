@@ -800,6 +800,7 @@ export const ConnectionScalarFieldEnum = {
   provider: 'provider',
   providerId: 'providerId',
   accessToken: 'accessToken',
+  refreshToken: 'refreshToken',
   userId: 'userId'
 } as const
 
