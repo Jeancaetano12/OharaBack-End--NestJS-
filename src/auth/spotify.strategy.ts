@@ -24,7 +24,7 @@ export class SpotifyStrategy extends PassportStrategy(Strategy, 'spotify') {
         refreshToken: string, 
         ...args: any[]
     ): Promise<any> {
-
+        this.logger.log(`Extraindo perfil do membro da API do Spotify`)
         const profile = args.find(arg =>
             arg && 
             typeof arg === 'object' && arg.id && arg.provider === 'spotify'

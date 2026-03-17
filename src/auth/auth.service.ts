@@ -49,11 +49,13 @@ export class AuthService {
   }
 
   async linkSpotifyAccount(jwtToken: string, spotifyProfile: any, spotifyAccessToken: string, spotifyRefreshToken: string) {
+    const decoded = this.jwtService.verify(jwtToken);
+    const userId = decoded.sub; 
+    this.logger.log(`Vinculando Spotify do ${userId} ao sistema.`)
     try {
-      const decoded = this.jwtService.verify(jwtToken);
-      const userId = decoded.sub; 
       
       if (!userId) {
+        this.logger.error(`Id de usuario não fornecido para vinculação do Spotify, retornando null. ${userId}` )
         return null;
       }
 

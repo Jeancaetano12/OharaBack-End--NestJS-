@@ -59,7 +59,7 @@ export class AuthController {
   async spotifyCallback(@Req() req, @Res() res) {
     const userSpotify = req.user;
     if (!userSpotify) {
-      this.logger.warn('Usuário não encontrado após callback do Spotify. Redirecionando para página de erro.');
+      this.logger.warn(`Usuário ${userSpotify} não encontrado após callback do Spotify. Redirecionando para página de erro.`);
       return res.redirect(`${process.env.FRONTEND_URL}/auth/spotify/error?reason=user_not_found`);
     }
   
