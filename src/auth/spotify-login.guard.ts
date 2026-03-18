@@ -7,6 +7,7 @@ export class SpotifyLoginGuard extends AuthGuard('spotify') {
         const req = context.switchToHttp().getRequest();
         return {
             state: req.query.state,
+            showDialog: true,
         };
     }
 }
