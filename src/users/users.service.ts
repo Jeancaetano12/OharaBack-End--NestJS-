@@ -36,9 +36,8 @@ export class UsersService {
 
     await this.prisma.connection.update({
       where: { id: connectionId },
-      data: { accessToken: data.access_token,
-        ...(data.refresh_token? { refreshToken: data.refresh_token } : {})
-      }
+      data: { accessToken: data.access_token },
+      ...(data.refresh_token ? { refreshToken: data.refresh_token } : {})
     });
 
     this.logger.log(`Token do Spotify renovado com sucesso (Connection ID: ${connectionId})`);
