@@ -7,6 +7,66 @@ export class UsersService {
   constructor(private prisma: PrismaService) {}
   private readonly logger = new Logger(UsersService.name);
 
+  private async linkSteamAccount(userId: string, steamUrl: string) {
+    try {
+      this.logger.log(`Processando URL da Steam: ${steamUrl}`);
+
+      const urlParts = steamUrl.replace(/\/$/, '').split('/'); 
+      const idOrVanity = urlParts[urlParts.length - 1];
+      const urlType = urlParts[urlParts.length - 2]; // Descobre se é "id" ou "profiles"
+
+      let steamId64 = "";
+
+      if (urlType === 'profiles') {
+        steamId64 = idOrVanity;
+      } else if (urlType === 'id') {
+        const steamApiKey = process.env.STEAM_API_KEY;
+        if (!steamApiKey) {
+          throw new Error(`KEY DA API STEAM NAO CONFIGURADA NO .env`)
+        }
+        
+        const response = await fetch(`https://api.steampowered.com/ISteamUser/ResolveVanityURL/v1/?key=${steamApiKey}&vanityurl=${idOrVanity}`);
+        const data = await response.json();
+
+        if (data.response.success === 1) {
+          steamId64 = data.response.steamid;
+        } else {
+          this.logger.warn(`Não foi possível resolver a URL da Steam: ${steamUrl}`)
+          return;
+        }
+      } else {
+        this.logger.warn(`Formato de URL da Steam não reconhecido: ${steamUrl}`)
+        return;
+      }
+
+      const existingConnection = await this.prisma.connection.findFirst({
+        where: { userId: userId, provider: 'steam' }
+      });
+
+      if (existingConnection) {
+        this.logger.log(`Usuario ${userId} atualizando conexao com a steam`);
+        await this.prisma.connection.update({
+          where: { id: existingConnection.id },
+          data: { providerId: steamId64, accessToken: steamId64 }
+        });
+      } else {
+        this.logger.log(`Usuario ${userId} vinculando steam`)
+        await this.prisma.connection.create({
+          data: {
+            provider: 'steam',
+            providerId: steamId64,
+            accessToken: steamId64,
+            userId: userId
+          }
+        });
+      }
+
+      this.logger.log(`Steam vinculada com sucesso para o usuario ${userId} (SteamID: ${steamId64})`)
+    } catch (error) {
+      this.logger.error(`Erro ao processar integração com a Steam: ${error}`)
+    }
+  } 
+
   private async refreshSpotifyToken(connectionId: string, refreshToken: string): Promise<string> {
     this.logger.log(`Iniciando renovação do token do Spotify (Connection ID: ${connectionId})`);
 
@@ -94,7 +154,6 @@ export class UsersService {
           connections: {
             select: {
               provider: true,
-              providerId: true,
             }
           }
         }
@@ -129,6 +188,10 @@ export class UsersService {
         BannerSite: data.BannerSite,
       },
     });
+
+    if (data.socialLinks && data.socialLinks.steam) {
+      await this.linkSteamAccount(userId, data.socialLinks.steam)
+    }
 
     if (profile.createdAt.getTime() === profile.updatedAt.getTime()) {
       this.logger.log(`Perfil criado para o usuário ID: ${userId}`);
