@@ -787,6 +787,7 @@ export const ProfileScalarFieldEnum = {
   birthDate: 'birthDate',
   AvatarSite: 'AvatarSite',
   BannerSite: 'BannerSite',
+  steamFavoriteGames: 'steamFavoriteGames',
   userId: 'userId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'

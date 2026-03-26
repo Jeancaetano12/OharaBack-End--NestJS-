@@ -80,6 +80,7 @@ model Profile {
   birthDate   DateTime?
   AvatarSite  String? // Ex: "dark", "dracula" (preferência do site)
   BannerSite  String?
+  steamFavoriteGames Json?
   
   // A chave estrangeira que liga ao Membro
   userId      String  @unique // @unique garante que 1 Membro só tem 1 Perfil

@@ -53,6 +53,7 @@ export type ProfileCountAggregateOutputType = {
   birthDate: number
   AvatarSite: number
   BannerSite: number
+  steamFavoriteGames: number
   userId: number
   createdAt: number
   updatedAt: number
@@ -89,6 +90,7 @@ export type ProfileCountAggregateInputType = {
   birthDate?: true
   AvatarSite?: true
   BannerSite?: true
+  steamFavoriteGames?: true
   userId?: true
   createdAt?: true
   updatedAt?: true
@@ -174,6 +176,7 @@ export type ProfileGroupByOutputType = {
   birthDate: Date | null
   AvatarSite: string | null
   BannerSite: string | null
+  steamFavoriteGames: runtime.JsonValue | null
   userId: string
   createdAt: Date
   updatedAt: Date
@@ -207,6 +210,7 @@ export type ProfileWhereInput = {
   birthDate?: Prisma.DateTimeNullableFilter<"Profile"> | Date | string | null
   AvatarSite?: Prisma.StringNullableFilter<"Profile"> | string | null
   BannerSite?: Prisma.StringNullableFilter<"Profile"> | string | null
+  steamFavoriteGames?: Prisma.JsonNullableFilter<"Profile">
   userId?: Prisma.StringFilter<"Profile"> | string
   createdAt?: Prisma.DateTimeFilter<"Profile"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Profile"> | Date | string
@@ -220,6 +224,7 @@ export type ProfileOrderByWithRelationInput = {
   birthDate?: Prisma.SortOrderInput | Prisma.SortOrder
   AvatarSite?: Prisma.SortOrderInput | Prisma.SortOrder
   BannerSite?: Prisma.SortOrderInput | Prisma.SortOrder
+  steamFavoriteGames?: Prisma.SortOrderInput | Prisma.SortOrder
   userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -237,6 +242,7 @@ export type ProfileWhereUniqueInput = Prisma.AtLeast<{
   birthDate?: Prisma.DateTimeNullableFilter<"Profile"> | Date | string | null
   AvatarSite?: Prisma.StringNullableFilter<"Profile"> | string | null
   BannerSite?: Prisma.StringNullableFilter<"Profile"> | string | null
+  steamFavoriteGames?: Prisma.JsonNullableFilter<"Profile">
   createdAt?: Prisma.DateTimeFilter<"Profile"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Profile"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -249,6 +255,7 @@ export type ProfileOrderByWithAggregationInput = {
   birthDate?: Prisma.SortOrderInput | Prisma.SortOrder
   AvatarSite?: Prisma.SortOrderInput | Prisma.SortOrder
   BannerSite?: Prisma.SortOrderInput | Prisma.SortOrder
+  steamFavoriteGames?: Prisma.SortOrderInput | Prisma.SortOrder
   userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -267,6 +274,7 @@ export type ProfileScalarWhereWithAggregatesInput = {
   birthDate?: Prisma.DateTimeNullableWithAggregatesFilter<"Profile"> | Date | string | null
   AvatarSite?: Prisma.StringNullableWithAggregatesFilter<"Profile"> | string | null
   BannerSite?: Prisma.StringNullableWithAggregatesFilter<"Profile"> | string | null
+  steamFavoriteGames?: Prisma.JsonNullableWithAggregatesFilter<"Profile">
   userId?: Prisma.StringWithAggregatesFilter<"Profile"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Profile"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Profile"> | Date | string
@@ -279,6 +287,7 @@ export type ProfileCreateInput = {
   birthDate?: Date | string | null
   AvatarSite?: string | null
   BannerSite?: string | null
+  steamFavoriteGames?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutProfileInput
@@ -291,6 +300,7 @@ export type ProfileUncheckedCreateInput = {
   birthDate?: Date | string | null
   AvatarSite?: string | null
   BannerSite?: string | null
+  steamFavoriteGames?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   userId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -303,6 +313,7 @@ export type ProfileUpdateInput = {
   birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   AvatarSite?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   BannerSite?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  steamFavoriteGames?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutProfileNestedInput
@@ -315,6 +326,7 @@ export type ProfileUncheckedUpdateInput = {
   birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   AvatarSite?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   BannerSite?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  steamFavoriteGames?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -327,6 +339,7 @@ export type ProfileCreateManyInput = {
   birthDate?: Date | string | null
   AvatarSite?: string | null
   BannerSite?: string | null
+  steamFavoriteGames?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   userId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -339,6 +352,7 @@ export type ProfileUpdateManyMutationInput = {
   birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   AvatarSite?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   BannerSite?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  steamFavoriteGames?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -350,6 +364,7 @@ export type ProfileUncheckedUpdateManyInput = {
   birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   AvatarSite?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   BannerSite?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  steamFavoriteGames?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -367,6 +382,7 @@ export type ProfileCountOrderByAggregateInput = {
   birthDate?: Prisma.SortOrder
   AvatarSite?: Prisma.SortOrder
   BannerSite?: Prisma.SortOrder
+  steamFavoriteGames?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -433,6 +449,7 @@ export type ProfileCreateWithoutUserInput = {
   birthDate?: Date | string | null
   AvatarSite?: string | null
   BannerSite?: string | null
+  steamFavoriteGames?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -444,6 +461,7 @@ export type ProfileUncheckedCreateWithoutUserInput = {
   birthDate?: Date | string | null
   AvatarSite?: string | null
   BannerSite?: string | null
+  steamFavoriteGames?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -471,6 +489,7 @@ export type ProfileUpdateWithoutUserInput = {
   birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   AvatarSite?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   BannerSite?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  steamFavoriteGames?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -482,6 +501,7 @@ export type ProfileUncheckedUpdateWithoutUserInput = {
   birthDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   AvatarSite?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   BannerSite?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  steamFavoriteGames?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -495,6 +515,7 @@ export type ProfileSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   birthDate?: boolean
   AvatarSite?: boolean
   BannerSite?: boolean
+  steamFavoriteGames?: boolean
   userId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -508,6 +529,7 @@ export type ProfileSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   birthDate?: boolean
   AvatarSite?: boolean
   BannerSite?: boolean
+  steamFavoriteGames?: boolean
   userId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -521,6 +543,7 @@ export type ProfileSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   birthDate?: boolean
   AvatarSite?: boolean
   BannerSite?: boolean
+  steamFavoriteGames?: boolean
   userId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -534,12 +557,13 @@ export type ProfileSelectScalar = {
   birthDate?: boolean
   AvatarSite?: boolean
   BannerSite?: boolean
+  steamFavoriteGames?: boolean
   userId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type ProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "bio" | "socialLinks" | "birthDate" | "AvatarSite" | "BannerSite" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["profile"]>
+export type ProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "bio" | "socialLinks" | "birthDate" | "AvatarSite" | "BannerSite" | "steamFavoriteGames" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["profile"]>
 export type ProfileInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
@@ -562,6 +586,7 @@ export type $ProfilePayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     birthDate: Date | null
     AvatarSite: string | null
     BannerSite: string | null
+    steamFavoriteGames: runtime.JsonValue | null
     userId: string
     createdAt: Date
     updatedAt: Date
@@ -995,6 +1020,7 @@ export interface ProfileFieldRefs {
   readonly birthDate: Prisma.FieldRef<"Profile", 'DateTime'>
   readonly AvatarSite: Prisma.FieldRef<"Profile", 'String'>
   readonly BannerSite: Prisma.FieldRef<"Profile", 'String'>
+  readonly steamFavoriteGames: Prisma.FieldRef<"Profile", 'Json'>
   readonly userId: Prisma.FieldRef<"Profile", 'String'>
   readonly createdAt: Prisma.FieldRef<"Profile", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Profile", 'DateTime'>
