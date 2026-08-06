@@ -5,9 +5,7 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client"
-  output   = "../src/generated/prisma"
-  moduleFormat    = "cjs"
+  provider = "prisma-client-js"
 }
 
 datasource db {
@@ -15,95 +13,95 @@ datasource db {
 }
 
 model User {
-  id              String    @id @default(uuid()) // ID interno do banco
-  discordId       String    @unique              // ID do Discord (chave única para busca)
-  email           String?   @unique              // Email do usuário (pode ser nulo)
+  id             String  @id @default(uuid()) // ID interno do banco
+  discordId      String  @unique // ID do Discord (chave única para busca)
+  email          String? @unique // Email do usuário (pode ser nulo)
   // Dados de Identificação
-  username        String
-  globalName      String?
-  serverNickName  String?
-  
+  username       String
+  globalName     String?
+  serverNickName String?
+
   // URLs de Imagens
   avatarUrl       String?
   serverAvatarUrl String?
   bannerUrl       String?
   serverBannerUrl String?
-  
+
   // Metadados
-  isBot           Boolean   @default(false)
-  colorHex        String?   // A cor que o usuário exibe no servidor
-  
+  isBot    Boolean @default(false)
+  colorHex String? // A cor que o usuário exibe no servidor
+
   // Datas
   accountCreatedAt DateTime
   joinedServerAt   DateTime?
   premiumSince     DateTime?
 
   // Campos de Controle do Banco
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   // Relacionamento: Um usuário pode ter vários cargos
-  roles           Role[]    
-  
+  roles Role[]
+
   // Relacionamento Opcional (?): O usuário pode existir sem ter criado perfil ainda
-  profile         Profile?
-  
+  profile Profile?
+
   // Conexões (Steam, etc) - Futuro
-  connections     Connection[]
+  connections Connection[]
+
   @@map("Membros") // Nome da tabela no banco
 }
 
 model Role {
-  id            String  @id @default(uuid())
-  discordId     String  @unique // Importante para o "connect" funcionar
-  
+  id        String @id @default(uuid())
+  discordId String @unique // Importante para o "connect" funcionar
+
   name          String
   colorHex      String?
   position      Int
-  permissions   String  // Armazenado como String (BigInt convertido)
+  permissions   String // Armazenado como String (BigInt convertido)
   isManaged     Boolean @default(false)
   isMentionable Boolean @default(false)
   isHoist       Boolean @default(false)
 
   // Relacionamento: Um cargo pode pertencer a vários usuários
-  membros         User[]
+  membros User[]
 
   @@map("Cargos") // Nome da tabela no banco
 }
 
 model Profile {
-  id          String  @id @default(uuid())
-  
+  id String @id @default(uuid())
+
   // Campos que o usuário edita
-  bio         String? @db.Text // "Sobre Mim"
-  socialLinks Json?
-  birthDate   DateTime?
-  AvatarSite  String? // Ex: "dark", "dracula" (preferência do site)
-  BannerSite  String?
+  bio                String?   @db.Text // "Sobre Mim"
+  socialLinks        Json?
+  birthDate          DateTime?
+  AvatarSite         String? // Ex: "dark", "dracula" (preferência do site)
+  BannerSite         String?
   steamFavoriteGames Json?
-  
+
   // A chave estrangeira que liga ao Membro
-  userId      String  @unique // @unique garante que 1 Membro só tem 1 Perfil
-  user        User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String @unique // @unique garante que 1 Membro só tem 1 Perfil
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   // Campos de Controle do Banco
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("Perfis")
 }
 
 model Connection {
-  id           String   @id @default(uuid())
-  provider     String   // "steam", "spotify"
+  id           String  @id @default(uuid())
+  provider     String // "steam", "spotify"
   providerId   String
   accessToken  String?
   refreshToken String?
-  
-  userId       String
-  user         User     @relation(fields: [userId], references: [id])
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
 
   @@unique([provider, providerId])
   @@map("Conexoes")
 }
-

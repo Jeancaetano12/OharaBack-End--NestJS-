@@ -2,9 +2,9 @@ import { Module } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
 import { DiscordStrategy } from './discord.strategy';
-import { PrismaService } from '../prisma.service';
-import { JwtModule } from '@nestjs/jwt'; 
-import { JwtStrategy } from './jwt.strategy'; 
+import { PrismaService } from '../prisma/prisma.service';
+import { JwtModule } from '@nestjs/jwt';
+import { JwtStrategy } from './jwt.strategy';
 import { SpotifyStrategy } from './spotify.strategy';
 
 @Module({
@@ -17,4 +17,4 @@ import { SpotifyStrategy } from './spotify.strategy';
   controllers: [AuthController],
   providers: [AuthService, DiscordStrategy, PrismaService, JwtStrategy, SpotifyStrategy],
 })
-export class AuthModule {}
+export class AuthModule { }

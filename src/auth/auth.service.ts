@@ -1,5 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { PrismaService } from '../prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
@@ -8,7 +8,7 @@ export class AuthService {
   constructor(
     private prisma: PrismaService,
     private jwtService: JwtService
-  ) {}
+  ) { }
 
   async validateDiscordUser(profile: any) {
     const { id, email } = profile;
@@ -50,12 +50,12 @@ export class AuthService {
 
   async linkSpotifyAccount(jwtToken: string, spotifyProfile: any, spotifyAccessToken: string, spotifyRefreshToken: string) {
     const decoded = this.jwtService.verify(jwtToken);
-    const userId = decoded.sub; 
+    const userId = decoded.sub;
     this.logger.log(`Vinculando Spotify do ${userId} ao sistema.`)
     try {
-      
+
       if (!userId) {
-        this.logger.error(`Id de usuario não fornecido para vinculação do Spotify, retornando null. ${userId}` )
+        this.logger.error(`Id de usuario não fornecido para vinculação do Spotify, retornando null. ${userId}`)
         return null;
       }
 
@@ -87,9 +87,9 @@ export class AuthService {
         spotifyId: spotifyProfile.id,
         discordId: decoded.discordId,
       }
-      
+
     } catch (error) {
-      
+
       this.logger.error(`Erro ao vincular Spotify: ${error}`);
       return null;
     }

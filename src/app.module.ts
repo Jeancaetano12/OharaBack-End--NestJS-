@@ -7,11 +7,12 @@ import { AuthModule } from './auth/auth.module';
 import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
 import { UsersModule } from './users/users.module';
+import { PrismaModule } from './prisma/prisma.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 
 @Module({
-  imports: [MembrosModule, CargosModule, AuthModule, UsersModule,
+  imports: [MembrosModule, CargosModule, AuthModule, UsersModule, PrismaModule,
     ThrottlerModule.forRoot([{
       ttl: 60,
       limit: 12,
@@ -26,4 +27,4 @@ import { join } from 'path';
     useClass: ThrottlerGuard,
   }],
 })
-export class AppModule {}
+export class AppModule { }

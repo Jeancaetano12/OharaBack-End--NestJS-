@@ -1,18 +1,18 @@
-import { Injectable, ConflictException, NotFoundException, Logger  } from '@nestjs/common';
-import { PrismaService } from '../prisma.service';
+import { Injectable, ConflictException, NotFoundException, Logger } from '@nestjs/common';
+import { PrismaService } from '../prisma/prisma.service';
 import { CreateMembroDto } from './dto/create-membro.dto';
 
 @Injectable()
 export class MembrosService {
     private readonly logger = new Logger(MembrosService.name);
-    constructor(private prisma: PrismaService) {}
+    constructor(private prisma: PrismaService) { }
 
     async syncMembers(createMembroDto: CreateMembroDto[]) {
         try {
             const transaction = createMembroDto.map((membro) => {
                 const { rolesIds, ...userData } = membro;
-                const rolesConnection = rolesIds && rolesIds.length > 0 
-                    ? rolesIds.map((id) => ({ discordId: id })) 
+                const rolesConnection = rolesIds && rolesIds.length > 0
+                    ? rolesIds.map((id) => ({ discordId: id }))
                     : [];
                 this.logger.log(`Sincronizando membro: ${userData.discordId} com ${rolesConnection.length} cargos.`);
                 return this.prisma.user.upsert({
@@ -53,7 +53,7 @@ export class MembrosService {
             });
             this.logger.log(`Membros sincronizados com sucesso.`);
             return this.prisma.$transaction(transaction);
-        }   catch (error) {
+        } catch (error) {
             this.logger.warn(`Erro ao sincronizar membros: ${console.error(error)}`);
             throw new Error(`Erro ao sincronizar membros`);
         }
@@ -107,9 +107,9 @@ export class MembrosService {
         this.logger.log(`Calculando índices para paginação: página ${pageNumber}, tamanho ${pageSize}...`);
         const startIndex = (pageNumber - 1) * pageSize;
         const endIndex = startIndex + pageSize;
-        
+
         // Pega apenas os IDs da página que o usuário pediu
-        
+
         const pageIds = allIds.slice(startIndex, endIndex);
 
         // --- ETAPA 3: Buscar os dados Reais ---
@@ -150,7 +150,7 @@ export class MembrosService {
         // para garantir que a ordem dos IDs que criamos na Etapa 2 seja respeitada
         this.logger.log(`Reordenando usuários para manter a ordem correta...`);
         const sortedUsers = pageIds.map(id => users.find(u => u.id === id))
-        .filter(u => u !== undefined);
+            .filter(u => u !== undefined);
 
         const safeUsers = sortedUsers.map(user => {
             const { id, ...publicData } = user;
@@ -169,48 +169,48 @@ export class MembrosService {
     }
 
     async findOne(name: string) {
-    const membros = await this.prisma.user.findMany({
-        where: {
-            OR: [
-                {
-                    globalName: {
-                        contains: name,
-                        mode: 'insensitive',
+        const membros = await this.prisma.user.findMany({
+            where: {
+                OR: [
+                    {
+                        globalName: {
+                            contains: name,
+                            mode: 'insensitive',
+                        },
                     },
-                },
-                {
-                    serverNickName: {
-                        contains: name,
-                        mode: 'insensitive',
+                    {
+                        serverNickName: {
+                            contains: name,
+                            mode: 'insensitive',
+                        },
                     },
-                },
-                {
-                    username: {
-                        contains: name,
-                        mode: 'insensitive',
-                    },
-                }
-            ],
-        },
-        select: {
-            discordId: true,
-            username: true,
-            globalName: true,
-            serverNickName: true,
-            avatarUrl: true,
-            serverAvatarUrl: true,
-            roles: {
-                select: {
-                    id: true, name: true, colorHex: true, position: true,
-                },
-                orderBy: { position: 'desc' }
+                    {
+                        username: {
+                            contains: name,
+                            mode: 'insensitive',
+                        },
+                    }
+                ],
             },
-        },
-        orderBy: {
-            globalName: 'asc' 
-        }
-    });
-    this.logger.log(`Encontrados ${membros.length} membros com o nome: ${name}`);
-    return membros;
-}
+            select: {
+                discordId: true,
+                username: true,
+                globalName: true,
+                serverNickName: true,
+                avatarUrl: true,
+                serverAvatarUrl: true,
+                roles: {
+                    select: {
+                        id: true, name: true, colorHex: true, position: true,
+                    },
+                    orderBy: { position: 'desc' }
+                },
+            },
+            orderBy: {
+                globalName: 'asc'
+            }
+        });
+        this.logger.log(`Encontrados ${membros.length} membros com o nome: ${name}`);
+        return membros;
+    }
 }

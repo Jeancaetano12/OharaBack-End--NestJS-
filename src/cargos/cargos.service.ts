@@ -1,11 +1,11 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { PrismaService } from '../prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 import { CreateCargoDto } from './dto/create-cargo.dto';
 
 @Injectable()
 export class CargosService {
     private readonly logger = new Logger(CargosService.name);
-    constructor(private prisma: PrismaService) {}
+    constructor(private prisma: PrismaService) { }
 
     async syncRoles(createCargoDto: CreateCargoDto[]) {
         this.logger.log(`Sincronizando ${createCargoDto.length} cargos...`);
@@ -36,8 +36,8 @@ export class CargosService {
                 }),
             );
             this.logger.log(`Cargos sincronizados com sucesso.`);
-            return this.prisma.$transaction(transaction);    
-        }   catch (error) {
+            return this.prisma.$transaction(transaction);
+        } catch (error) {
             this.logger.error(`Erro ao sincronizar cargos: ${console.error(error)}`);
             throw new Error(`Erro ao sincronizar cargos`);
         }
