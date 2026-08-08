@@ -1,16 +1,35 @@
-# docker-compose.yml
-
 version: '3.8'
+
 services:
-  postgres-db:
-    image: postgres:15-alpine
+  postgres:
+    image: postgres:16-alpine
     container_name: ohara-postgres
     restart: always
     environment:
-      POSTGRES_USER: ohara
-      POSTGRES_PASSWORD: docker
-      POSTGRES_DB: ohara_db
-    ports:
-      - '5432:5432'
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
     volumes:
-      - ./pgdata:/var/lib/postgresql/data
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - ohara-network
+
+  backend:
+    build: .
+    container_name: ohara-backend
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: "postgresql://${DB_USER}:${DB_PASSWORD}@ohara-postgres:5432/${DB_NAME}?schema=public"
+    depends_on:
+      - postgres
+    networks:
+      - ohara-network
+
+networks:
+  ohara-network:
+    external: true
+
+volumes:
+  pgdata:
