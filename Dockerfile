@@ -5,7 +5,7 @@ WORKDIR /app
 COPY package.json bun.lock* ./
 
 # Instala dependências
-RUN bun install --frozen-lockfile
+RUN bun install
 
 # Copia o código-fonte e o schema do Prisma
 COPY . .
