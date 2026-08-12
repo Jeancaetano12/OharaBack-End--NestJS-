@@ -10,6 +10,7 @@ import { UsersModule } from './users/users.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [MembrosModule, CargosModule, AuthModule, UsersModule, PrismaModule,
@@ -17,6 +18,7 @@ import { join } from 'path';
       ttl: 60,
       limit: 12,
     }]),
+    ScheduleModule.forRoot(),
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'public'),
       serveRoot: '/',
