@@ -2,9 +2,6 @@ import { Controller, Get, Req, Res, UseGuards, Logger } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from './auth.service'; 
 import { DiscordAuthGuard } from './discord-auth.guard';
-import { SpotifyLoginGuard } from './spotify-login.guard';
-import { SpotifyAuthGuard } from './spotify-auth.guard';
-;
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('auth')
@@ -45,25 +42,5 @@ export class AuthController {
 
     this.logger.log(`Token JWT gerado para o usuário ${user.username}, redirecionando para o frontend.`);
     res.redirect(`${process.env.FRONTEND_URL}/auth/discord/success?token=${jwt.access_token}`);
-  }
-
-  @Get('spotify')
-  @UseGuards(SpotifyLoginGuard)
-  async spotifyLogin() {
-    this.logger.log('Redirecionando autenticação para o Spotify.');
-    // Redireciona para o oauth2 do Spotify
-  }
-
-  @Get('spotify/callback')
-  @UseGuards(SpotifyAuthGuard)
-  async spotifyCallback(@Req() req, @Res() res) {
-    const userSpotify = req.user;
-    if (!userSpotify) {
-      this.logger.warn(`Usuário ${userSpotify} não encontrado após callback do Spotify. Redirecionando para página de erro.`);
-      return res.redirect(`${process.env.FRONTEND_URL}/auth/spotify/error?reason=user_not_found`);
-    }
-  
-    this.logger.log(`Usuário vinculou Spotify: ${userSpotify.username}, (ID: ${userSpotify.spotifyId})`);
-    res.redirect(`${process.env.FRONTEND_URL}/pages/perfil/${userSpotify.discordId}`);
   }
 }
