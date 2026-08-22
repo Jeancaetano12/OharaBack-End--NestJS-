@@ -5,7 +5,7 @@ import { Cron } from "@nestjs/schedule";
 export class MembrosCronService {
     private readonly logger = new Logger(MembrosCronService.name);
 
-    @Cron('*/15 * * * *') // Executa a cada 15 minutos
+    @Cron(process.env.NODE_ENV === 'production' ? '0 2 * * 0' : '*/15 * * * *') // Executa todo domingo às 02:00 AM em produção, e a cada 15 minutos em dev
     async sincronizarDados() {
         this.logger.warn(`[CRON] Tarefa de sincronização solicitada ao bot.`)
         try {
