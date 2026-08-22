@@ -4,7 +4,7 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { UpdateProfileDto } from './dto/update-profile.dto';
 import { UpdateSteamShowcaseDto } from './dto/update-steam-showcase.dto';
 import { AddSteamLinkDto } from './dto/add-steam-link.dto';
-import { ApiBearerAuth, ApiOperation, ApiParam, ApiTags, ApiResponse } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiParam, ApiResponse } from '@nestjs/swagger';
 
 @Controller('users')
 export class UsersController {
