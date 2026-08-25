@@ -23,6 +23,8 @@ services:
       target: migrate
     env_file:
       - .env
+    environment:
+      DATABASE_URL: "postgresql://${DB_USER}:${DB_PASSWORD}@ohara-postgres:5432/${DB_NAME}?schema=public"
     depends_on:
       postgres:
         condition: service_healthy
@@ -40,6 +42,8 @@ services:
     restart: always
     ports:
       - "127.0.0.1:3000:3000"
+    environment:
+      DATABASE_URL: "postgresql://${DB_USER}:${DB_PASSWORD}@ohara-postgres:5432/${DB_NAME}?schema=public"
     depends_on:
       migrate:
         condition: service_completed_successfully
