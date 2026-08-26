@@ -3,12 +3,13 @@ import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import helmet from 'helmet';
+import cookieParser from 'cookie-parser';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   const config = new DocumentBuilder()
-    .setTitle ('Ohara API')
+    .setTitle('Ohara API')
     .setDescription('Descricao da API')
     .setVersion('1.0')
     .addApiKey({ type: 'apiKey', name: 'X-SITE-KEY', in: 'header' }, 'SITE_KEY')
@@ -28,15 +29,16 @@ async function bootstrap() {
   });
 
   app.use(helmet());
+  app.use(cookieParser());
 
   app.useGlobalPipes(new ValidationPipe({
-    transform: true, 
+    transform: true,
     whitelist: true,
     forbidNonWhitelisted: true,
   }));
 
   app.enableCors({
-    origin:['http://localhost:3001', 'http://localhost:3000', 'https://ohara-back-end.vercel.app', 'https://ohara-site.vercel.app'],
+    origin: ['http://localhost:3001', 'http://localhost:3000', 'https://ohara-back-end.vercel.app', 'https://ohara-site.vercel.app'],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     credentials: true,
   });

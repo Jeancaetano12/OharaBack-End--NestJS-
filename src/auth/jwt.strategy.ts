@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
+import { Request } from 'express';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
@@ -11,8 +12,16 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     }
 
     super({
-      // Extrai o token do cabeçalho "Authorization: Bearer <token>"
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+      // Extrai o token do cookie 'jwt' ou do cabeçalho "Authorization: Bearer <token>" como fallback
+      jwtFromRequest: ExtractJwt.fromExtractors([
+        (req: Request) => {
+          let token = null;
+          if (req && req.cookies) {
+            token = req.cookies['jwt'];
+          }
+          return token || ExtractJwt.fromAuthHeaderAsBearerToken()(req);
+        }
+      ]),
       ignoreExpiration: false, // Se o token venceu, nega o acesso
       secretOrKey: process.env.JWT_SECRET, // A mesma chave do .env
     });
