@@ -14,9 +14,9 @@ export class DiscordAuthGuard extends AuthGuard('discord') {
       const stateFromCookie = req.cookies?.oauth_state;
 
       if (!stateFromQuery || stateFromQuery !== stateFromCookie) {
-        this.logger.warn('State do OAuth inválido ou ausente. Possível ataque CSRF.');
+        this.logger.warn(`State do OAuth inválido. Query: ${stateFromQuery}, Cookie: ${stateFromCookie}, All Cookies: ${JSON.stringify(req.cookies)}`);
         res.redirect(`${process.env.FRONTEND_URL}/auth/discord/error?reason=invalid_state`);
-        return false; // Stop the execution
+        return false;
       }
       res.clearCookie('oauth_state');
     }
@@ -29,25 +29,7 @@ export class DiscordAuthGuard extends AuthGuard('discord') {
     }
   }
 
-  getAuthenticateOptions(context: ExecutionContext) {
-    const req = context.switchToHttp().getRequest();
-    const res = context.switchToHttp().getResponse();
-    
-    // Se for o callback, não enviamos opções extras
-    if (req.query.code || req.query.error) {
-      return {};
-    }
 
-    // Gera um novo state para o redirecionamento de login
-    const state = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-    res.cookie('oauth_state', state, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
-      maxAge: 1000 * 60 * 5, // 5 minutos
-    });
-    return { state };
-  }
 
   handleRequest(err: any, user: any, info: any, context: ExecutionContext) {
     if (err || !user) {

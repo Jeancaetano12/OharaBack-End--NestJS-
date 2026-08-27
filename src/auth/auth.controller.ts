@@ -1,4 +1,4 @@
-import { Controller, Get, Req, Res, HttpStatus, UseGuards, Logger, HttpCode } from '@nestjs/common';
+import { Controller, Get, Req, Res, Post, HttpStatus, UseGuards, Logger, HttpCode } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from './auth.service';
 import { DiscordAuthGuard } from './discord-auth.guard';
@@ -17,10 +17,26 @@ export class AuthController {
   @ApiResponse({ status: 302, description: 'Redirecionamento para o Discord.' })
   @Get('discord')
   @HttpCode(HttpStatus.OK)
-  @UseGuards(DiscordAuthGuard)
-  async discordLogin() {
-    this.logger.log('Redirecionando autenticação para o Discord.');
-    // Redireciona para o oauth2 do Discord
+  async discordLogin(@Req() req, @Res() res) {
+    this.logger.log('Redirecionando autenticação para o Discord com verificação de state.');
+
+    // Gerar um state seguro e salvar em cookie HTTP-Only
+    const state = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+    res.cookie('oauth_state', state, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      maxAge: 1000 * 60 * 5, // 5 minutos de validade
+    });
+
+    // Construir a URL de autorização manualmente
+    const clientId = process.env.DISCORD_CLIENT_ID;
+    const redirectUri = encodeURIComponent(process.env.DISCORD_CALLBACK_URL || '');
+    const scopes = encodeURIComponent('identify email guilds');
+    const authUrl = `https://discord.com/api/oauth2/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&scope=${scopes}&state=${state}`;
+
+    // Redireciona o usuário
+    res.redirect(authUrl);
   }
 
   @ApiOperation({
@@ -43,14 +59,33 @@ export class AuthController {
     const jwt = await this.authService.login(user);
 
     this.logger.log(`Token JWT gerado para o usuário ${user.username}, redirecionando para o frontend.`);
-    
+
     res.cookie('jwt', jwt.access_token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
       maxAge: 7 * 24 * 60 * 60 * 1000 // 7 dias
     });
-    
+
     res.redirect(`${process.env.FRONTEND_URL}/auth/discord/success`);
+  }
+
+  @ApiOperation({
+    summary: 'Logout',
+    description: 'Remove o token JWT do usuário limpando o cookie.'
+  })
+  @ApiResponse({ status: 204, description: 'Logout realizado com sucesso.' })
+  @Post('logout')
+  @UseGuards(AuthGuard('jwt'))
+  async logout(@Req() req, @Res() res) {
+    this.logger.log(`Efetuando logout do usuário: ${req.user?.username || 'Desconhecido'}`);
+
+    res.clearCookie('jwt', {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+    });
+
+    return res.status(HttpStatus.NO_CONTENT).send();
   }
 }
