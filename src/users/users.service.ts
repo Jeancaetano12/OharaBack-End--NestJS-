@@ -47,7 +47,7 @@ export class UsersService {
         this.logger.log(`Usuario ${userId} atualizando conexao com a steam`);
         await this.prisma.connection.update({
           where: { id: existingConnection.id },
-          data: { providerId: steamId64, accessToken: steamId64 }
+          data: { providerId: steamId64 }
         });
       } else {
         this.logger.log(`Usuario ${userId} vinculando steam`)
@@ -55,7 +55,6 @@ export class UsersService {
           data: {
             provider: 'steam',
             providerId: steamId64,
-            accessToken: steamId64,
             userId: userId
           }
         });

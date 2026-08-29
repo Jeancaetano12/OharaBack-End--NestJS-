@@ -2,7 +2,6 @@ import { Module } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
 import { DiscordStrategy } from './discord.strategy';
-import { PrismaService } from '../prisma/prisma.service';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './jwt.strategy';
 
@@ -14,6 +13,6 @@ import { JwtStrategy } from './jwt.strategy';
     }),
   ],
   controllers: [AuthController],
-  providers: [AuthService, DiscordStrategy, PrismaService, JwtStrategy],
+  providers: [AuthService, DiscordStrategy, JwtStrategy],
 })
 export class AuthModule { }

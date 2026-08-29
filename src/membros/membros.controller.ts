@@ -1,15 +1,14 @@
-import { Controller, UseGuards, Post, Body, Get, Query, BadRequestException, Logger} from '@nestjs/common';
+import { Controller, UseGuards, Post, Body, Get, Query, BadRequestException, Logger } from '@nestjs/common';
 import { MembrosService } from './membros.service';
 import { BotKeyGuard } from '../auth/bot-key.guard';
-import { SiteKeyGuard } from '../auth/site-key.guard';
-import { CreateMembroDto } from './dto/create-membro.dto'; 
-import { SkipThrottle } from '@nestjs/throttler';
+import { CreateMembroDto } from './dto/create-membro.dto';
+import { SkipThrottle, ThrottlerGuard } from '@nestjs/throttler';
 import { ApiBody, ApiQuery } from '@nestjs/swagger';
 
 @Controller('membros')
 export class MembrosController {
   private readonly logger = new Logger(MembrosController.name);
-  constructor(private readonly membrosService: MembrosService) {}
+  constructor(private readonly membrosService: MembrosService) { }
 
   @Post()
   @SkipThrottle()
@@ -24,7 +23,6 @@ export class MembrosController {
   }
 
   @Get()
-  @UseGuards(SiteKeyGuard)
   @ApiBody({
     description: 'Parâmetros de paginação para listar os membros',
     type: Object,
@@ -37,17 +35,16 @@ export class MembrosController {
   }
 
   @Get('search')
-  @UseGuards(SiteKeyGuard)
   @ApiBody({
     description: 'Parâmetro de busca para encontrar um membro pelo nome de usuário, apelido ou nome global',
     type: Object,
   })
   @ApiQuery({ name: 'name', description: 'Nome do membro para busca', required: true })
   async searchMember(@Query('name') name: string) {
-  if (!name) {
-    throw new BadRequestException('O nome para busca é obrigatório');
-  }
-  this.logger.log(`Buscando membro pelo nome: ${name}`);
-  return await this.membrosService.findOne(name);
+    if (!name) {
+      throw new BadRequestException('O nome para busca é obrigatório');
+    }
+    this.logger.log(`Buscando membro pelo nome: ${name}`);
+    return await this.membrosService.findOne(name);
   }
 }
