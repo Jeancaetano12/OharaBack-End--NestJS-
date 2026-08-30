@@ -25,6 +25,7 @@ export class DiscordAuthGuard extends AuthGuard('discord') {
       return (await super.canActivate(context)) as boolean;
     } catch (err) {
       this.logger.error('Erro durante a autenticação do Discord', err);
+      res.redirect(`${process.env.FRONTEND_URL}/auth/discord/error?reason=internal_error`);
       return false;
     }
   }
