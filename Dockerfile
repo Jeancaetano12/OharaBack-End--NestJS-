@@ -3,7 +3,7 @@ FROM oven/bun:1 AS build
 WORKDIR /app
 
 COPY package.json bun.lock ./
-RUN bun install --frozen-lockfile
+RUN bun install
 
 COPY nest-cli.json prisma.config.ts tsconfig.json tsconfig.build.json ./
 COPY prisma ./prisma
@@ -20,7 +20,7 @@ WORKDIR /app
 ENV NODE_ENV=production
 
 COPY package.json bun.lock ./
-RUN bun install --frozen-lockfile --production
+RUN bun install  --production
 
 COPY --from=build /app/dist ./dist
 COPY --from=build /app/prisma ./prisma
