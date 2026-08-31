@@ -1,4 +1,4 @@
-import { Controller, Get, Req, Res, Post, HttpStatus, UseGuards, Logger, HttpCode } from '@nestjs/common';
+import { Controller, Get, Req, Res, Post, HttpStatus, UseGuards, Logger, HttpCode, Body, UnauthorizedException } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { AuthService } from './auth.service';
 import { DiscordAuthGuard } from './discord-auth.guard';
@@ -56,18 +56,32 @@ export class AuthController {
     }
 
     this.logger.log(`Usuário autenticado: ${user.username}, email: ${user.email} (ID: ${user.discordId})`);
-    const jwt = await this.authService.login(user);
+    this.logger.log(`Gerando código temporário para o usuário ${user.username}, redirecionando para o frontend.`);
 
-    this.logger.log(`Token JWT gerado para o usuário ${user.username}, redirecionando para o frontend.`);
+    const temporaryCode = await this.authService.generateTemporaryCode(user);
 
-    res.cookie('jwt', jwt.access_token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'none',
-      maxAge: 7 * 24 * 60 * 60 * 1000 // 7 dias
-    });
+    // Redireciona com o código de 1 minuto na URL
+    res.redirect(`${process.env.FRONTEND_URL}/auth/discord/success?code=${temporaryCode}`);
+  }
 
-    res.redirect(`${process.env.FRONTEND_URL}/auth/discord/success`);
+  @ApiOperation({
+    summary: 'Troca de código temporário por JWT permanente',
+    description: 'Endpoint que o frontend chama em background usando o código recebido pela URL para obter o token JWT permanente.'
+  })
+  @ApiResponse({ status: 200, description: 'Token JWT retornado com sucesso.' })
+  @Post('exchange')
+  @HttpCode(HttpStatus.OK)
+  async exchangeCode(@Body('code') code: string) {
+    if (!code) {
+      throw new UnauthorizedException('Código de troca ausente');
+    }
+
+    try {
+      const tokens = await this.authService.exchangeCodeForToken(code);
+      return tokens;
+    } catch (error) {
+      throw new UnauthorizedException(error.message);
+    }
   }
 
   @ApiOperation({
@@ -80,11 +94,9 @@ export class AuthController {
   async logout(@Req() req, @Res() res) {
     this.logger.log(`Efetuando logout do usuário: ${req.user?.username || 'Desconhecido'}`);
 
-    res.clearCookie('jwt', {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'none',
-    });
+    // Como estamos usando LocalStorage, o backend não tem como apagar o token fisicamente.
+    // O frontend que precisa chamar isso e limpar o LocalStorage na sua ponta.
+    // Opcionalmente, você poderia salvar o ID do JWT em uma blacklist no banco, mas por ora basta retornar sucesso.
 
     return res.status(HttpStatus.NO_CONTENT).send();
   }
