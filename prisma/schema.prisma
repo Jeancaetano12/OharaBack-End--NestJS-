@@ -12,6 +12,11 @@ datasource db {
   provider = "postgresql"
 }
 
+enum tipoEvento {
+  COBBLEMON
+  OUTRO
+}
+
 model User {
   id             String  @id @default(uuid()) // ID interno do banco
   discordId      String  @unique // ID do Discord (chave única para busca)
@@ -46,8 +51,13 @@ model User {
   // Relacionamento Opcional (?): O usuário pode existir sem ter criado perfil ainda
   profile Profile?
 
-  // Conexões (Steam, etc) - Futuro
-  connections Connection[]
+  // Conexões (Steam, etc)
+  connections     Connection[]
+  contasMinecraft ContaMinecraft[]
+
+  // Posts e Comentários do Feed
+  posts    Post[]
+  comments Comment[]
 
   @@map("Membros") // Nome da tabela no banco
 }
@@ -89,19 +99,99 @@ model Profile {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@map("Perfis")
+  @@map("Perfis") // Nome da tabela no banco
 }
 
 model Connection {
   id           String  @id @default(uuid())
   provider     String // "steam", "spotify"
   providerId   String
-  accessToken  String?
   refreshToken String?
 
   userId String
   user   User   @relation(fields: [userId], references: [id])
 
   @@unique([provider, providerId])
-  @@map("Conexoes")
+  @@map("Conexoes") // Nome da tabela no banco
+}
+
+model OharaEventos {
+  id               String     @id @default(uuid())
+  nomeEvento       String     @unique
+  tipoEvento       tipoEvento
+  descricao        String
+  dataInicio       DateTime
+  dataEncerramento DateTime
+  createdAt        DateTime   @default(now())
+  updatedAt        DateTime   @updatedAt
+
+  pokemonsCapturados PokemonsCapturados[]
+
+  // Relação com anúncios e postagens do evento
+  posts Post[]
+
+  @@map("OharaEventos") // Nome da tabela no banco
+}
+
+model PokemonsCapturados {
+  id          Int            @id @default(autoincrement())
+  eventoId    String?
+  playerUuid  String
+  conta       ContaMinecraft @relation(fields: [playerUuid], references: [uuid], onDelete: Cascade)
+  evento      OharaEventos?  @relation(fields: [eventoId], references: [id], onDelete: Cascade)
+  pokemon     String
+  level       Int
+  pokebola    String
+  tipos       String[]
+  capturadoEm DateTime       @default(now())
+
+  @@map("PokemonsCapturados")
+}
+
+model ContaMinecraft {
+  uuid      String               @id
+  userId    String?              @unique
+  membro    User?                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  nickAtual String
+  createdAt DateTime             @default(now())
+  updatedAt DateTime             @updatedAt
+  pokemons  PokemonsCapturados[]
+
+  @@map("ContasMinecraft")
+}
+
+model Post {
+  id      String @id @default(uuid())
+  content String @db.Text // Texto rico gerado pelo editor
+  media   Json? // Arrays de links para imagens/gifs
+
+  authorId String
+  author   User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  eventoId String?
+  evento   OharaEventos? @relation(fields: [eventoId], references: [id], onDelete: Cascade)
+
+  comentarios Comment[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("Posts")
+}
+
+model Comment {
+  id      String @id @default(uuid())
+  content String @db.Text
+  media   Json? // Imagens ou gifs anexados ao comentário
+
+  postId String
+  post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  authorId String
+  author   User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("Comentarios")
 }
