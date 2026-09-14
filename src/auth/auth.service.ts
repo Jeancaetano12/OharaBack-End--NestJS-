@@ -31,6 +31,16 @@ export class AuthService {
   }
 
   async login(user: any) {
+    const userWithRoles = await this.prisma.user.findUnique({
+      where: { discordId: user.discordId },
+      select: {
+        roles: {
+          select: {
+            name: true
+          }
+        }
+      }
+    });
 
     const payload = {
       sub: user.id,
@@ -41,8 +51,9 @@ export class AuthService {
       avatarUrl: user.avatarUrl,
       serverAvatarUrl: user.serverAvatarUrl,
       serverNickName: user.serverNickName,
+      roles: userWithRoles?.roles.map(role => role.name) || []
     };
-
+    this.logger.log('Token gerado para o usuário:', payload);
     return {
       access_token: this.jwtService.sign(payload),
     }

@@ -20,6 +20,10 @@ export class PostagensService {
                 throw new BadRequestException(`Já existe um post com esse titulo.`);
             }
 
+            if (createPostDto.media!.length > 10) {
+                throw new BadRequestException(`O post deve ter menos de 10 mídias.`);
+            }
+
             return this.prisma.post.create({
                 data: {
                     tittle: createPostDto.tittle,
@@ -101,6 +105,11 @@ export class PostagensService {
                         select: {
                             globalName: true,
                             avatarUrl: true,
+                            roles: {
+                                select: {
+                                    name: true,
+                                }
+                            }
                         }
                     },
                     createdAt: true,

@@ -30,8 +30,10 @@ export class PostagensController {
 
     @Post('create')
     @UseGuards(JwtAuthGuard)
+    @ApiBody({ type: CreatePostDto })
     createPost(@Body() createPostDto: CreatePostDto) {
         this.logger.log(`Solicitação de criação de post recebida por ${createPostDto.discordId}`);
+        this.logger.log(`Dados do post: ${createPostDto}`)
         return this.postagensService.createPost(createPostDto);
     }
 
@@ -54,9 +56,18 @@ export class PostagensController {
         })
     }))
     uploadImagens(@UploadedFiles() files: Express.Multer.File[], @Req() req: any) {
-        const protocol = req.protocol || 'http';
-        const host = req.get('host') || 'localhost:3000';
-        const urls = files.map(file => `${protocol}://${host}/uploads/images/${file.filename}`);
+        let baseUrl: string;
+
+        // Em produção, usa a variável APP_URL. Em dev, usa o host da requisição.
+        if (process.env.NODE_ENV === 'production') {
+            baseUrl = process.env.APP_URL || 'http://localhost:3000';
+        } else {
+            const protocol = req.protocol || 'http';
+            const host = req.get('host') || 'localhost:3000';
+            baseUrl = `${protocol}://${host}`;
+        }
+
+        const urls = files.map(file => `${baseUrl}/uploads/images/${file.filename}`);
         return { urls };
     }
 }

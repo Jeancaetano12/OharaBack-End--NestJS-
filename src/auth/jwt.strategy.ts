@@ -1,10 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { Request } from 'express';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
+  private readonly logger = new Logger(JwtStrategy.name);
   constructor() {
 
     if (!process.env.JWT_SECRET) {
@@ -30,6 +31,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   async validate(payload: any) {
     // O que retornarmos aqui será inserido automaticamente em 'req.user'
     // nas rotas protegidas
-    return { id: payload.sub, discordId: payload.discordId, username: payload.username };
+    this.logger.log(payload);
+    return { id: payload.sub, discordId: payload.discordId, username: payload.username, roles: payload.roles };
   }
 }
