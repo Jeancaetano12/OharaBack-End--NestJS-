@@ -56,8 +56,9 @@ model User {
   contasMinecraft ContaMinecraft[]
 
   // Posts e Comentários do Feed
-  posts    Post[]
-  comments Comment[]
+  posts           Post[]
+  eventosPostados OharaEventos[]
+  comments        Comment[]
 
   @@map("Membros") // Nome da tabela no banco
 }
@@ -119,7 +120,10 @@ model OharaEventos {
   id               String     @id @default(uuid())
   nomeEvento       String     @unique
   tipoEvento       tipoEvento
-  descricao        String
+  descricao        String     @db.Text
+  media            Json?
+  authorId         String
+  author           User       @relation(fields: [authorId], references: [discordId], onDelete: Cascade)
   dataInicio       DateTime
   dataEncerramento DateTime
   createdAt        DateTime   @default(now())
@@ -162,11 +166,12 @@ model ContaMinecraft {
 
 model Post {
   id      String @id @default(uuid())
+  tittle  String @unique
   content String @db.Text // Texto rico gerado pelo editor
   media   Json? // Arrays de links para imagens/gifs
 
   authorId String
-  author   User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  author   User   @relation(fields: [authorId], references: [discordId], onDelete: Cascade)
 
   eventoId String?
   evento   OharaEventos? @relation(fields: [eventoId], references: [id], onDelete: Cascade)
@@ -188,7 +193,7 @@ model Comment {
   post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
 
   authorId String
-  author   User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  author   User   @relation(fields: [authorId], references: [discordId], onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

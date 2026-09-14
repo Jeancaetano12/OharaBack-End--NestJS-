@@ -2,7 +2,7 @@ import { Controller, UseGuards, Post, Body, Get, Query, BadRequestException, Log
 import { MembrosService } from './membros.service';
 import { BotKeyGuard } from '../auth/bot-key.guard';
 import { CreateMembroDto } from './dto/create-membro.dto';
-import { SkipThrottle, ThrottlerGuard } from '@nestjs/throttler';
+import { SkipThrottle } from '@nestjs/throttler';
 import { ApiBody, ApiQuery } from '@nestjs/swagger';
 
 @Controller('membros')

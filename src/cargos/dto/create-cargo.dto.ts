@@ -1,10 +1,10 @@
-import { 
-  IsString, 
-  IsNotEmpty, 
-  IsInt, 
-  IsBoolean, 
-  IsOptional, 
-  IsHexColor, 
+import {
+  IsString,
+  IsNotEmpty,
+  IsInt,
+  IsBoolean,
+  IsOptional,
+  IsHexColor,
   Min,
 } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';

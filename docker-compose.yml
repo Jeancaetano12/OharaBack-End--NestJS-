@@ -49,6 +49,8 @@ services:
     depends_on:
       migrate:
         condition: service_completed_successfully
+    volumes:
+      - ohara-uploads:/app/uploads
     networks:
       - ohara-network
 
@@ -58,3 +60,4 @@ networks:
 
 volumes:
   pgdata:
+  ohara-uploads:

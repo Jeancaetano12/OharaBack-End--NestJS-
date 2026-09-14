@@ -11,18 +11,25 @@ import { PrismaModule } from './prisma/prisma.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { ScheduleModule } from '@nestjs/schedule';
+import { PostagensModule } from './postagens/postagens.module';
 
 @Module({
-  imports: [MembrosModule, CargosModule, AuthModule, UsersModule, PrismaModule,
+  imports: [MembrosModule, CargosModule, AuthModule, UsersModule, PrismaModule, PostagensModule,
     ThrottlerModule.forRoot([{
       ttl: 60,
       limit: 12,
     }]),
     ScheduleModule.forRoot(),
-    ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'public'),
-      serveRoot: '/',
-    })],
+    ServeStaticModule.forRoot(
+      {
+        rootPath: join(process.cwd(), 'public'),
+        serveRoot: '/',
+      },
+      {
+        rootPath: join(process.cwd(), 'uploads'),
+        serveRoot: '/uploads',
+      }
+    )],
   controllers: [AppController],
   providers: [AppService, {
     provide: APP_GUARD,

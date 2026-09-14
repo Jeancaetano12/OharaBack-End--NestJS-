@@ -28,7 +28,9 @@ async function bootstrap() {
     customfavIcon: '/swagger-ui/favicon-32x32.png',
   });
 
-  app.use(helmet());
+  app.use(helmet({
+    crossOriginResourcePolicy: { policy: "cross-origin" }
+  }));
   app.use(cookieParser());
 
   app.useGlobalPipes(new ValidationPipe({
