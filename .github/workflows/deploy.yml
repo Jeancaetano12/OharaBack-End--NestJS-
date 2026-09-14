@@ -19,3 +19,14 @@ jobs:
             cd ~/apps/OharaBack-End--NestJS-
             git pull origin main
             docker compose up -d --build --force-recreate
+            
+            echo "Aguardando 10 segundos para verificar a saúde do container..."
+            sleep 10
+            
+            if [ -z "$(docker ps -q -f name=ohara-backend -f status=running)" ]; then
+              echo "Erro: O container falhou ao iniciar ou está em loop de reinício (crash)!"
+              docker logs ohara-backend
+              exit 1
+            fi
+            
+            echo "Deploy validado com sucesso! O container está rodando perfeitamente."

@@ -4,7 +4,7 @@ import { diskStorage } from 'multer';
 import { extname } from 'path';
 import * as fs from 'fs';
 import { PostagensService } from './postagens.service';
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { ApiBody, ApiQuery } from '@nestjs/swagger';
 import { CreatePostDto } from './dto/create-post.dto';
 
